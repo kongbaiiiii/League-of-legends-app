@@ -7,7 +7,7 @@ public class MatchesData implements Matches{
 
     public MatchesData(List<Match> matches) {
         for (Match match:matches){
-            this.matches.put(match.getMatchID,match);
+            this.matches.put(match.getMatchID(),match);
         }
     }
 
