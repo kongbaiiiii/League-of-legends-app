@@ -4,6 +4,7 @@ import entity.Player;
 import entity.PlayerFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.key_setup.KeySetupDataAccessInterface;
 import use_case.login.LoginPlayerDataAccessInterface;
 
 import java.io.*;
@@ -11,10 +12,10 @@ import java.io.*;
 import okhttp3.*;
 
 
-public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface {
+public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, KeySetupDataAccessInterface {
     private final File playerFile;
 
-    private final String authoKey;
+    private String authoKey;
 
     private Player player;
 
@@ -55,7 +56,8 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface {
         }
     }
 
-    private void saveKey() {
+    @Override
+    public void saveKey() {
         BufferedWriter writer;
         File keyFile = new File("authoKey.csv");
         try {
@@ -89,6 +91,29 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface {
     @Override
     public void save(Player player) {
         this.player = player;
+    }
+
+    @Override
+    public void setKey(String userInputKey) {
+        this.authoKey = userInputKey;
+    }
+
+    @Override
+    public boolean validKey() {
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        Request request = new Request.Builder()
+                .url("https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/wrnmbb/NA1")
+                .addHeader("X-Riot-Token", authoKey)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            assert response.body() != null;
+            JSONObject responseBody = new JSONObject(response.body().string());
+            responseBody.getInt("status_code");
+            return false;
+        } catch (IOException | JSONException e) {
+            return true;
+        }
     }
 
 //    @Override
