@@ -9,7 +9,11 @@ class MatchData implements Match {
 
     private String matchid;
 
-    MatchData(String matchid, List<String> teamMateUserID,Map<String, List<Float>> kda, Map<String, String> champions, Map<String, Integer> damagedealt, Map<String, Integer> gold, Map<String, Integer> damagetaken, String gamemode, Long gameduration, Map<String, Integer> level, Map<String, Integer> cs) {
+    MatchData(String matchid, List<String> teamMateUserID,
+              Map<String, List<Float>> kda, Map<String, String> champions,
+              Map<String, Integer> damagedealt, Map<String, Integer> gold,
+              Map<String, Integer> damagetaken, String gamemode,
+              Long gameduration, Map<String, Integer> level, Map<String, Integer> cs) {
         this.matchid = matchid;
         this.teamMateUserID = teamMateUserID;
         this.kda = kda;
@@ -30,7 +34,7 @@ class MatchData implements Match {
 
     private List<String> teamMateUserID = new ArrayList<>();
 
-    private final List<String> opponentuserid = new ArrayList<>();
+    private final List<String> opponentUserid = new ArrayList<>();
 
     private Map<String, List<Float>> kda = new HashMap<>();
 
@@ -42,9 +46,9 @@ class MatchData implements Match {
 
     private Map<String, Integer> damagetaken = new HashMap<>();
 
-    private String gamemode;
+    private final String gamemode;
 
-    private Long gameduration;
+    private final Long gameduration;
 
     private Map<String, Integer> level = new HashMap<>();
 
