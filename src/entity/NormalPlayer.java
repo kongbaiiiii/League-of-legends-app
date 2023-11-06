@@ -10,7 +10,7 @@ public class NormalPlayer implements Player {
     }
 
     @Override
-    public String getUserID() {
+    public String getPlayerID() {
         return userid;
     }
 
