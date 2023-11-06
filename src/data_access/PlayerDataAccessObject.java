@@ -48,7 +48,7 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, K
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(playerFile));
-            writer.write(player.getUserID());
+            writer.write(player.getPlayerID());
             writer.write(player.getPuuiD());
             writer.close();
         } catch (IOException e) {
@@ -68,7 +68,6 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, K
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     public boolean validPlayerID(String playerID) {
@@ -94,6 +93,23 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, K
     }
 
     @Override
+    public String getPuuid(String playerID) {
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        Request request = new Request.Builder()
+                .url(String.format("https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/%s/NA1", playerID))
+                .addHeader("X-Riot-Token", authoKey)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            assert response.body() != null;
+            JSONObject responseBody = new JSONObject(response.body().string());
+            return responseBody.getString("puuid");
+        } catch (IOException | JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void setKey(String userInputKey) {
         this.authoKey = userInputKey;
     }
@@ -115,10 +131,4 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, K
             return true;
         }
     }
-
-//    @Override
-//    public void setKey(String authoKey){
-//        this.authoKey =authoKey;
-//    }
-
 }
