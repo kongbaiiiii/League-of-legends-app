@@ -10,9 +10,10 @@ import use_case.login.LoginPlayerDataAccessInterface;
 import java.io.*;
 
 import okhttp3.*;
+import use_case.logout.LogoutPlayerDataAccessInterface;
 
 
-public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, KeySetupDataAccessInterface {
+public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, LogoutPlayerDataAccessInterface, KeySetupDataAccessInterface {
     private final File playerFile;
 
     private String authoKey;
@@ -129,6 +130,18 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, K
             return false;
         } catch (IOException | JSONException e) {
             return true;
+        }
+    }
+
+    @Override
+    public void logout() {
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter(playerFile));
+            writer.write("");
+            writer.close();
+        } catch (IOException e){
+            throw new RuntimeException(e);
         }
     }
 }
