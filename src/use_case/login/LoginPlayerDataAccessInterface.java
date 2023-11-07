@@ -7,4 +7,6 @@ public interface LoginPlayerDataAccessInterface {
 
     void save(Player player);
 
+    String getPuuid(String playerID);
+
 }

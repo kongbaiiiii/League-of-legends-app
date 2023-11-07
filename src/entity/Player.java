@@ -1,7 +1,7 @@
 package entity;
 
 public interface Player {
-    String getUserID();
+    String getPlayerID();
 
     String getPuuiD();
 }
