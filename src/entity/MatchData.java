@@ -12,7 +12,7 @@ class MatchData implements Match {
 
     private final ArrayList<Long> deathsList;
     private final ArrayList<Long> killsList;
-    private final ArrayList<Long> kdaList;
+    private final ArrayList<Double> kdaList;
     private final ArrayList<String> championIdList;
 
     private final ArrayList<String> championNameList;
@@ -51,7 +51,7 @@ class MatchData implements Match {
               ArrayList<Long> item5List, ArrayList<Long> item6List,
               ArrayList<Long> totalDamageDealtList, ArrayList<Long> totalDamageTakenList,
               ArrayList<Long> levelList, ArrayList<Long> csList, ArrayList<Boolean> winList,
-              String matchid, ArrayList<Long> kdaList,
+              String matchid, ArrayList<Double> kdaList,
               ArrayList<Long> goldEarnedList, String gamemode) {
         this.puuidList = puuidList;
         this.summonerNameList = summonerNameList;
