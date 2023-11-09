@@ -5,7 +5,7 @@ import java.util.*;
 public class MatchesData implements Matches{
     private Map<String,Match> matches = new HashMap<>();
 
-    public MatchesData(List<Match> matches) {
+    public MatchesData(ArrayList<Match> matches) {
         for (Match match:matches){
             this.matches.put(match.getMatchID(),match);
         }
