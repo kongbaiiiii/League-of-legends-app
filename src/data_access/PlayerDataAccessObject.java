@@ -1,24 +1,31 @@
 package data_access;
 
+import entity.Match;
 import entity.Player;
 import entity.PlayerFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.CheckMatch.CheckMatchPlayerDataAccessInterface;
+import use_case.checkMatchDetail.CheckMatchDetailInputBoundary;
+import use_case.checkMatchDetail.CheckMatchDetailPlayerDataAccessInterface;
 import use_case.key_setup.KeySetupDataAccessInterface;
 import use_case.login.LoginPlayerDataAccessInterface;
 
 import java.io.*;
+import java.util.List;
 
 import okhttp3.*;
 import use_case.logout.LogoutPlayerDataAccessInterface;
 
 
-public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, LogoutPlayerDataAccessInterface, KeySetupDataAccessInterface {
+public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, LogoutPlayerDataAccessInterface, KeySetupDataAccessInterface{
     private final File playerFile;
 
     private String authoKey;
 
     private Player player;
+
+    private Match match;
 
     private PlayerFactory playerFactory;
 
