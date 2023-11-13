@@ -10,14 +10,14 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_case.CheckMatch.CheckMatchPlayerDataAccessInterface;
+import use_case.CheckMatch.CheckMatchDataAccessInterface;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MatchDataAccessObject implements CheckMatchPlayerDataAccessInterface {
+public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
 
     private final File matchFile;
     private String authoKey;

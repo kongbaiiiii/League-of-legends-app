@@ -1,8 +1,7 @@
 package use_case.CheckMatch;
 
 import entity.Match;
-import org.json.JSONArray;
 
-public interface CheckMatchPlayerDataAccessInterface {
+public interface CheckMatchDataAccessInterface {
     Match getMatch(String matchId);
 }
