@@ -13,11 +13,12 @@ public class NormalMatchFactory implements MatchFactory {
                         ArrayList<Long> item5List, ArrayList<Long> item6List,
                         ArrayList<Long> totalDamageDealtList, ArrayList<Long> totalDamageTakenList,
                         ArrayList<Long> levelList, ArrayList<Long> csList, ArrayList<Boolean> winList,
-                        String matchId, ArrayList<Double> kdaList,
-                        ArrayList<Long> goldEarnedList, String gamemode) {
+                        String matchId, ArrayList<Long> kdaList,
+                        ArrayList<Long> goldEarnedList, String gamemode,
+                        ArrayList<Long> gameStartTimestampList) {
         return new MatchData(puuidList, summonerNameList, assistsList, deathsList,
                 killsList, championIdList, championNameList, item0List, item1List, item2List,
                 item3List, item4List, item5List, item6List, totalDamageDealtList, totalDamageTakenList,
-                levelList, csList, winList, matchId, kdaList, goldEarnedList, gamemode);
+                levelList, csList, winList, matchId, kdaList, goldEarnedList, gamemode, gameStartTimestampList);
     }
 }
