@@ -1,6 +1,9 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 class MatchData implements Match {
 
@@ -12,7 +15,7 @@ class MatchData implements Match {
 
     private final ArrayList<Long> deathsList;
     private final ArrayList<Long> killsList;
-    private final ArrayList<Double> kdaList;
+    private final ArrayList<Long> kdaList;
     private final ArrayList<String> championIdList;
 
     private final ArrayList<String> championNameList;
@@ -40,8 +43,9 @@ class MatchData implements Match {
     private final ArrayList<Long> csList;
     private final ArrayList<Boolean> winList;
     private String matchid;
-
+    private final ArrayList<Long> gameStartTimestampList;
     private String gamemode;
+
     MatchData(ArrayList<String> puuidList, ArrayList<String> summonerNameList,
               ArrayList<Long> assistsList, ArrayList<Long> deathsList,
               ArrayList<Long> killsList, ArrayList<String> championIdList,
@@ -51,8 +55,9 @@ class MatchData implements Match {
               ArrayList<Long> item5List, ArrayList<Long> item6List,
               ArrayList<Long> totalDamageDealtList, ArrayList<Long> totalDamageTakenList,
               ArrayList<Long> levelList, ArrayList<Long> csList, ArrayList<Boolean> winList,
-              String matchid, ArrayList<Double> kdaList,
-              ArrayList<Long> goldEarnedList, String gamemode) {
+              String matchid, ArrayList<Long> kdaList,
+              ArrayList<Long> goldEarnedList, String gamemode,
+              ArrayList<Long> gameStartTimestampList) {
         this.puuidList = puuidList;
         this.summonerNameList = summonerNameList;
         this.championIdList = championIdList;
@@ -74,12 +79,20 @@ class MatchData implements Match {
         this.deathsList = deathsList;
         this.killsList = killsList;
         this.kdaList = kdaList;
-
+        this.gameStartTimestampList = gameStartTimestampList;
         this.gamemode = gamemode;
         this.matchid = matchid;
 
 
+    }
 
+    public int getPlayerIndexByPlayerID(String PlayerID) {
+        for (int i = 0; i < summonerNameList.size(); i++) {
+            if (Objects.equals(PlayerID, summonerNameList.get(i))) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     @Override
@@ -88,33 +101,31 @@ class MatchData implements Match {
     }
 
     @Override
-    public ArrayList<Object> getDataByPlayerIndex(int i) {
-        ArrayList<Object> PlayerData = new ArrayList<>();
-        PlayerData.add(puuidList.get(i));
-        PlayerData.add(summonerNameList.get(i));
-        PlayerData.add(championIdList.get(i));
-        PlayerData.add(championNameList.get(i));
-        PlayerData.add(item0List.get(i));
-        PlayerData.add(item1List.get(i));
-        PlayerData.add(item2List.get(i));
-        PlayerData.add(item3List.get(i));
-        PlayerData.add(item5List.get(i));
-        PlayerData.add(item6List.get(i));
-        PlayerData.add(totalDamageDealtList.get(i));
-        PlayerData.add(totalDamageTakenList.get(i));
-        PlayerData.add(levelList.get(i));
-        PlayerData.add(csList.get(i));
-        PlayerData.add(winList.get(i));
-        PlayerData.add(goldEarnedList.get(i));
-        PlayerData.add(assistsList.get(i));
-        PlayerData.add(deathsList.get(i));
-        PlayerData.add(killsList.get(i));
-        PlayerData.add(kdaList.get(i));
-
-        return PlayerData;
+    public Map<String, Object> getDataByPlayerIndex(int i) {
+        Map<String, Object> Data = new HashMap<>();
+        Data.put("puuid", puuidList.get(i));
+        Data.put("summonerName", summonerNameList.get(i));
+        Data.put("championId", championIdList.get(i));
+        Data.put("championName", championNameList.get(i));
+        Data.put("item0", item0List.get(i));
+        Data.put("item1", item1List.get(i));
+        Data.put("item2", item2List.get(i));
+        Data.put("item3", item3List.get(i));
+        Data.put("item5", item5List.get(i));
+        Data.put("item6", item6List.get(i));
+        Data.put("totalDamageDealt", totalDamageDealtList.get(i));
+        Data.put("totalDamageTaken", totalDamageTakenList.get(i));
+        Data.put("level", levelList.get(i));
+        Data.put("cs", csList.get(i));
+        Data.put("win", winList.get(i));
+        Data.put("goldEarned", goldEarnedList.get(i));
+        Data.put("assists", assistsList.get(i));
+        Data.put("deaths", deathsList.get(i));
+        Data.put("kills", killsList.get(i));
+        Data.put("kda", kdaList.get(i));
+        Data.put("gameStartTimestamp", gameStartTimestampList.get(i));
+        return Data;
     }
-
-
 }
 
 

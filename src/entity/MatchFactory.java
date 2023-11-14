@@ -12,6 +12,7 @@ public interface MatchFactory {
                  ArrayList<Long> item5List, ArrayList<Long> item6List,
                  ArrayList<Long> totalDamageDealtList, ArrayList<Long> totalDamageTakenList,
                  ArrayList<Long> levelList, ArrayList<Long> csList, ArrayList<Boolean> winList,
-                 String matchId, ArrayList<Double> kdaList,
-                 ArrayList<Long> goldEarnedList, String gamemode);
+                 String matchId, ArrayList<Long> kdaList,
+                 ArrayList<Long> goldEarnedList, String gamemode,
+                 ArrayList<Long> gameStartTimestampList);
 }

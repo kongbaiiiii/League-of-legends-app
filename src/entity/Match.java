@@ -1,10 +1,12 @@
 package entity;
 
-import java.util.ArrayList;
+import java.util.Map;
 
 public interface Match {
 
     public String getMatchID();
 
-    public ArrayList<Object> getDataByPlayerIndex(int i);
+    public Map<String, Object> getDataByPlayerIndex(int i);
+
+    public int getPlayerIndexByPlayerID(String PlayerID);
 }

@@ -98,7 +98,7 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
         ArrayList<Long> assistsList = new ArrayList<Long>();
         ArrayList<Long> deathsList = new ArrayList<Long>();
         ArrayList<Long> killsList = new ArrayList<Long>();
-        ArrayList<Double> kdaList = new ArrayList<Double>();
+        ArrayList<Long> kdaList = new ArrayList<Long>();
         ArrayList<String> championIdList = new ArrayList<String>();
         ArrayList<String> championNameList = new ArrayList<String>();
         ArrayList<Long> item0List = new ArrayList<Long>();
@@ -114,6 +114,7 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
         ArrayList<Long> levelList = new ArrayList<Long>();
         ArrayList<Long> csList = new ArrayList<Long>();
         ArrayList<Boolean> winList = new ArrayList<Boolean>();
+        ArrayList<Long> gameStartTimestampList = new ArrayList<>();
 
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
@@ -129,10 +130,7 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
             for (int i = 0; i < participants.length(); i++) {
                 puuidList.add(participants.getJSONObject(i).getString("puuid"));
                 summonerNameList.add(participants.getJSONObject(i).getString("summonerName"));
-                assistsList.add(participants.getJSONObject(i).getLong("assists"));
-                deathsList.add(participants.getJSONObject(i).getLong("deaths"));
-                killsList.add(participants.getJSONObject(i).getLong("kills"));
-                championIdList.add(participants.getJSONObject(i).getString("championId"));
+                championIdList.add(Integer.toString(participants.getJSONObject(i).getInt("championId")));
                 championNameList.add(participants.getJSONObject(i).getString("championName"));
                 item0List.add(participants.getJSONObject(i).getLong("item0"));
                 item1List.add(participants.getJSONObject(i).getLong("item1"));
@@ -146,18 +144,31 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
                 levelList.add(participants.getJSONObject(i).getLong("champLevel"));
                 csList.add(participants.getJSONObject(i).getLong("totalMinionsKilled") + participants.getJSONObject(i).getLong("totalAllyJungleMinionsKilled"));
                 winList.add(participants.getJSONObject(i).getBoolean("win"));
-                kdaList.add(participants.getJSONObject(i).getDouble("kda"));
                 goldEarnedList.add(participants.getJSONObject(i).getLong("goldEarned"));
+                gameStartTimestampList.add(info.getLong("gameStartTimestamp"));
+                long assists = participants.getJSONObject(i).getLong("assists");
+                long deaths = participants.getJSONObject(i).getLong("deaths");
+                long kills = participants.getJSONObject(i).getLong("kills");
+                long kda = 0;
+                if (deaths != 0){
+                    kda = (assists + kills) / deaths;
+                }
+                assistsList.add(assists);
+                deathsList.add(deaths);
+                killsList.add(kills);
+                kdaList.add(kda);
             }
-            String gamemode = participants.getJSONObject(0).getString("gameMode");
+            String gamemode = info.getString("gameMode");
             return matchFactory.create(puuidList, summonerNameList, assistsList, deathsList,
                     killsList, championIdList, championNameList, item0List, item1List, item2List,
                     item3List, item4List, item5List, item6List, totalDamageDealtList, totalDamageTakenList,
-                    levelList, csList, winList, matchId, kdaList, goldEarnedList, gamemode);
+                    levelList, csList, winList, matchId, kdaList, goldEarnedList, gamemode, gameStartTimestampList);
         } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
     }
 
-
+    public ArrayList<Match> getMatchesList() {
+        return matchesList;
+    }
 }

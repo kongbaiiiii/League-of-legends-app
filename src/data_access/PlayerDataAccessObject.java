@@ -6,8 +6,6 @@ import entity.PlayerFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.CheckMatch.CheckMatchPlayerDataAccessInterface;
-import use_case.checkMatchDetail.CheckMatchDetailInputBoundary;
-import use_case.checkMatchDetail.CheckMatchDetailPlayerDataAccessInterface;
 import use_case.key_setup.KeySetupDataAccessInterface;
 import use_case.login.LoginPlayerDataAccessInterface;
 
