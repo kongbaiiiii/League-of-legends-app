@@ -30,7 +30,8 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
 
     private MatchesFactory matchesFactory;
 
-    public MatchDataAccessObject(String matchFilePath, MatchFactory matchFactory) throws IOException {
+    public MatchDataAccessObject(String matchFilePath, MatchFactory matchFactory, MatchesFactory matchesFactory) throws IOException {
+        this.matchesFactory = matchesFactory;
         this.matchFactory = matchFactory;
         matchFile = new File(matchFilePath);
         authoKey = getKey();
@@ -44,7 +45,7 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
                 }
             }
         }
-        matchesFactory.create(matchesList);
+        matches = this.matchesFactory.create(matchesList);
     }
 
     private void saveMatches() {
@@ -82,7 +83,7 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
             String a = input.substring(1, input.length() - 1);
             String[] elements = a.split(",");
             List<String> arrayList = Arrays.asList(elements);
-            for (int i = 0; i < arrayList.size(); i++){
+            for (int i = 0; i < arrayList.size(); i++) {
                 arrayList.set(i, arrayList.get(i).substring(1, arrayList.get(i).length() - 1));
             }
             return arrayList;
@@ -150,7 +151,7 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
                 long deaths = participants.getJSONObject(i).getLong("deaths");
                 long kills = participants.getJSONObject(i).getLong("kills");
                 long kda = 0;
-                if (deaths != 0){
+                if (deaths != 0) {
                     kda = (assists + kills) / deaths;
                 }
                 assistsList.add(assists);

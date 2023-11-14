@@ -1,33 +1,28 @@
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import data_access.MatchDataAccessObject;
+import data_access.PlayerDataAccessObject;
+//import data_access.StatPlotDataAccessObject;
+import data_access.StatPlotDataAccessObject;
+import entity.*;
 
 import java.io.IOException;
 
+
 public class test {
-    public static void main(String[] args) {
-        String MatchID = "NA1_4821455786";
-        String authoKey = "RGAPI-c6939f7a-5124-47b9-992f-bf3d71cff68c";
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
-        Request request = new Request.Builder()
-                .url(String.format("https://americas.api.riotgames.com/lol/match/v5/matches/%s", MatchID))
-                .addHeader("X-Riot-Token", authoKey)
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-            assert response.body() != null;
-            JSONObject responseBody = new JSONObject(response.body().string());
-            JSONObject info = responseBody.getJSONObject("info");
-            JSONArray participant = info.getJSONArray("participants");
-            for (int i = 0; i < participant.length(); i++) {
-                System.out.println(participant.getJSONObject(i).getString("summonerName"));
-                System.out.println(participant.getJSONObject(i).getString("championName"));
-            }
-        } catch (IOException | JSONException e) {
-            throw new RuntimeException(e);
-        }
+    public static void main(String[] args) throws IOException {
+        PlayerFactory playerFactory = new NormalPlayerFactory();
+        PlayerDataAccessObject playerDataAccessObject = new PlayerDataAccessObject("player.csv", playerFactory);
+        String playerpuuid = playerDataAccessObject.getPuuid("wrnmbb");
+        Player player = playerFactory.create("wrnmbb", playerpuuid);
+
+        MatchFactory matchFactory = new NormalMatchFactory();
+        MatchesFactory matchesFactory = new NormalMatchesFactory();
+
+        MatchDataAccessObject matchDataAccessObject = new MatchDataAccessObject("matchdata.csv", matchFactory, matchesFactory);
+
+        Matches matches = matchesFactory.create(matchDataAccessObject.getMatchesList());
+        StatPlotDataAccessObject statPlotDataAccessObject = new StatPlotDataAccessObject(matches, player);
+        statPlotDataAccessObject.plotStats("totalMinionsKilled", "goldEarned", "assists", "kills", "deaths");
+
+
     }
 }
