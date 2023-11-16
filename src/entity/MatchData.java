@@ -97,7 +97,8 @@ class MatchData implements Match {
 
     @Override
     public String getMatchID() {
-        return null;
+
+        return matchid;
     }
 
     @Override

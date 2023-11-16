@@ -1,9 +1,9 @@
 package entity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface Matches {
-    List<Match> getAllMatches();
+    ArrayList<Match> getAllMatches();
 
     Match getMatchByID(String matchid);
 }
