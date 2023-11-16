@@ -12,7 +12,7 @@ public class MatchesData implements Matches{
     }
 
     @Override
-    public List<Match> getAllMatches() {
+    public ArrayList<Match> getAllMatches() {
         return new ArrayList<>(matches.values());
     }
 
