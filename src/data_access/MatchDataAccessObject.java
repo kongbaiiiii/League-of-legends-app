@@ -48,7 +48,7 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
         matches = this.matchesFactory.create(matchesList);
     }
 
-    private void saveMatches() {
+    public void saveMatches() {
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(matchFile));
@@ -171,5 +171,9 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
 
     public ArrayList<Match> getMatchesList() {
         return matchesList;
+    }
+
+    public Matches getMatches(){
+        return this.matches;
     }
 }
