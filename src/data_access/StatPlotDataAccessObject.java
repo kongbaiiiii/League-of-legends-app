@@ -45,22 +45,22 @@ public class StatPlotDataAccessObject {
             data4.add(matchData.get(stat4));
             data5.add(matchData.get(stat5));
         }
-        plot(gameStartTimeList, data1, stat1);
-        plot(gameStartTimeList, data2, stat2);
-        plot(gameStartTimeList, data3, stat3);
-        plot(gameStartTimeList, data4, stat4);
-        plot(gameStartTimeList, data5, stat5);
+        plot(gameStartTimeList, data1, stat1, "stat1");
+        plot(gameStartTimeList, data2, stat2, "stat2");
+        plot(gameStartTimeList, data3, stat3, "stat3");
+        plot(gameStartTimeList, data4, stat4, "stat4");
+        plot(gameStartTimeList, data5, stat5, "stat5");
     }
 
-    private void plot(ArrayList<String> gameStartTimeList, ArrayList<Object> dataList, String outputName) {
-        int width = 600;
-        int height = 200;
+    private void plot(ArrayList<String> gameStartTimeList, ArrayList<Object> dataList, String image_title, String outputName) {
+        int WIDTH = 600;
+        int HEIGHT = 200;
         String backgroundColor = "rgb(20, 20, 20)";
 
         Map<String, Object> data = setUpDataMap(dataList, gameStartTimeList);
 
         Map<String, Object> scales = setUpScalesMap();
-        Map<String, Object> title = setUpTitleMap(outputName);
+        Map<String, Object> title = setUpTitleMap(image_title);
         Map<String, Object> legend = setUpLegendMap();
         Map<String, Object> options = setUpOptionsMap(legend, scales, title);
 
@@ -75,7 +75,7 @@ public class StatPlotDataAccessObject {
         Request request = new Request.Builder()
                 .url(String.format(
                         "https://quickchart.io/chart?bkg=%s&w=%d&h=%d&format=base64&chart=%s&devicePixelRatio=1",
-                        backgroundColor, width, height, chartDataAsString))
+                        backgroundColor, WIDTH, HEIGHT, chartDataAsString))
                 .build();
         try {
             Response response = client.newCall(request).execute();
@@ -84,7 +84,7 @@ public class StatPlotDataAccessObject {
             byte[] decodedData = Base64.getDecoder().decode(request_body);
 
             // Specify the output image file path
-            String outputPath = String.format("src/images/%s.png", outputName);
+            String outputPath = String.format("images/%s.png", outputName);
 
             // Write the decoded data to a PNG file
             try (FileOutputStream fos = new FileOutputStream(outputPath)) {
@@ -98,15 +98,15 @@ public class StatPlotDataAccessObject {
     }
 
     private Map<String, Object> setUpDataMap(ArrayList<Object> dataList, ArrayList<String> gameStartTimeList) {
-        String lineColor = "rgb(75, 192, 192)";
-        int lineWidth = 2;
+        String LINECOLOR = "rgb(75, 192, 192)";
+        int LINEWIDTH = 2;
         Map<String, Object> data = new HashMap<>();
         ArrayList<Object> datasets = new ArrayList<>();
         Map<String, Object> dataSet1 = new HashMap<>();
         dataSet1.put("type", "line");
         dataSet1.put("label", "Dataset 1");
-        dataSet1.put("borderColor", lineColor);
-        dataSet1.put("borderWidth", lineWidth);
+        dataSet1.put("borderColor", LINECOLOR);
+        dataSet1.put("borderWidth", LINEWIDTH);
         dataSet1.put("fill", false);
         dataSet1.put("data", dataList);
         datasets.add(dataSet1);
@@ -116,18 +116,19 @@ public class StatPlotDataAccessObject {
     }
 
     private Map<String, Object> setUpScalesMap() {
+        int FONTSIZE = 10;
         Map<String, Object> scales = new HashMap<>();
         ArrayList<Map<String, Object>> xAxesStyle = new ArrayList<>();
         Map<String, Object> ticksX = new HashMap<>();
         Map<String, Object> fontStyleX = new HashMap<>();
-        fontStyleX.put("fontSize", 10);
+        fontStyleX.put("fontSize", FONTSIZE);
         ticksX.put("ticks", fontStyleX);
         xAxesStyle.add(ticksX);
         scales.put("xAxes", xAxesStyle);
         ArrayList<Map<String, Object>> yAxesStyle = new ArrayList<>();
         Map<String, Object> ticksY = new HashMap<>();
         Map<String, Object> fontStyleY = new HashMap<>();
-        fontStyleY.put("fontSize", 10);
+        fontStyleY.put("fontSize", FONTSIZE);
         ticksY.put("ticks", fontStyleY);
         yAxesStyle.add(ticksY);
         scales.put("yAxes", yAxesStyle);
@@ -135,12 +136,13 @@ public class StatPlotDataAccessObject {
     }
 
     private Map<String, Object> setUpTitleMap(String outputName) {
-        String fontColor = "rgb(75, 192, 192)";
+        int FONTSIZE = 16;
+        String FONTCOLOR = "rgb(75, 192, 192)";
         Map<String, Object> title = new HashMap<>();
         title.put("display", true);
         title.put("text", outputName.toUpperCase(Locale.ROOT));
-        title.put("fontSize", 16);
-        title.put("fontColor", fontColor);
+        title.put("fontSize", FONTSIZE);
+        title.put("fontColor", FONTCOLOR);
         return title;
     }
 

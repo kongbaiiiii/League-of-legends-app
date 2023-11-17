@@ -112,6 +112,7 @@ class MatchData implements Match {
         Data.put("item1", item1List.get(i));
         Data.put("item2", item2List.get(i));
         Data.put("item3", item3List.get(i));
+        Data.put("item4", item4List.get(i));
         Data.put("item5", item5List.get(i));
         Data.put("item6", item6List.get(i));
         Data.put("totalDamageDealt", totalDamageDealtList.get(i));
@@ -125,6 +126,7 @@ class MatchData implements Match {
         Data.put("kills", killsList.get(i));
         Data.put("kda", kdaList.get(i));
         Data.put("gameStartTimestamp", gameStartTimestampList.get(i));
+        Data.put("gamemode", gamemode);
         return Data;
     }
 }
