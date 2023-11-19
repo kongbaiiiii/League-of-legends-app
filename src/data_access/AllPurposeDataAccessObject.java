@@ -37,4 +37,9 @@ public class AllPurposeDataAccessObject implements UpdateDataAccessInterface {
     public Matches getMatches() {
         return matchDataAccessObject.getMatches();
     }
+
+    @Override
+    public String getPuuid(String playerID) {
+        return playerDataAccessObject.getPuuid(playerID);
+    }
 }

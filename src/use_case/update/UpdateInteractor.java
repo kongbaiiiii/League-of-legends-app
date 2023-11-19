@@ -15,7 +15,8 @@ public class UpdateInteractor implements UpdateInputBoundary {
 
     @Override
     public void execute(UpdateInputData updateInputData) {
-        String puuid = updateInputData.getPuuid();
+        String playerID = updateInputData.getPlayerID();
+        String puuid = updateDataAccessObject.getPuuid(playerID);
         updateDataAccessObject.updateMatchesFile(puuid);
         updateDataAccessObject.plotStats(updateInputData.getStat1(), updateInputData.getStat2(), updateInputData.getStat3(), updateInputData.getStat4(), updateInputData.getStat5());
         Matches matches = updateDataAccessObject.getMatches();

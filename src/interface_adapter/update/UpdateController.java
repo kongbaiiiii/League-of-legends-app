@@ -10,8 +10,8 @@ public class UpdateController {
         this.updateUseCaseInteractor = updateUseCaseInteractor;
     }
 
-    public void execute(String puuid, String stat1, String stat2, String stat3, String stat4, String stat5){
-        UpdateInputData updateInputData = new UpdateInputData(puuid, stat1, stat2, stat3, stat4, stat5);
+    public void execute(String playerID, String stat1, String stat2, String stat3, String stat4, String stat5){
+        UpdateInputData updateInputData = new UpdateInputData(playerID, stat1, stat2, stat3, stat4, stat5);
         updateUseCaseInteractor.execute(updateInputData);
     }
 }

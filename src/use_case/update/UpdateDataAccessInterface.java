@@ -7,11 +7,13 @@ import java.util.ArrayList;
 
 public interface UpdateDataAccessInterface {
 
-    public void plotStats(String stat1, String stat2, String stat3, String stat4, String stat5);
+    void plotStats(String stat1, String stat2, String stat3, String stat4, String stat5);
 
 
-    public void updateMatchesFile(String puuid);
+    void updateMatchesFile(String puuid);
 
-    public Matches getMatches();
+    Matches getMatches();
+
+    String getPuuid(String playerID);
 
 }

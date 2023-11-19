@@ -1,7 +1,7 @@
 package use_case.update;
 
 public class UpdateInputData {
-    private final String puuid;
+    private final String playerID;
 
     private final String stat1;
 
@@ -13,8 +13,8 @@ public class UpdateInputData {
 
     private final String stat5;
 
-    public UpdateInputData(String puuid, String stat1, String stat2, String stat3, String stat4, String stat5) {
-        this.puuid = puuid;
+    public UpdateInputData(String playerID, String stat1, String stat2, String stat3, String stat4, String stat5) {
+        this.playerID = playerID;
         this.stat1 = stat1;
         this.stat2 = stat2;
         this.stat3 = stat3;
@@ -22,8 +22,8 @@ public class UpdateInputData {
         this.stat5 = stat5;
     }
 
-    public String getPuuid(){
-        return puuid;
+    public String getPlayerID(){
+        return playerID;
     }
 
     public String getStat1() {
