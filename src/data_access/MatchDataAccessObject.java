@@ -48,7 +48,7 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
         matches = this.matchesFactory.create(matchesList);
     }
 
-    public void saveMatches() {
+    private void saveMatches() {
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(matchFile));
@@ -68,7 +68,7 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
         }
     }
 
-    public List<String> getMatchesID(String puuid) {
+    public ArrayList<String> getMatchesID(String puuid) {
         ArrayList<String> matchesID = new ArrayList<String>();
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
@@ -82,7 +82,7 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
             String input = response.body().string();
             String a = input.substring(1, input.length() - 1);
             String[] elements = a.split(",");
-            List<String> arrayList = Arrays.asList(elements);
+            ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(elements));
             for (int i = 0; i < arrayList.size(); i++) {
                 arrayList.set(i, arrayList.get(i).substring(1, arrayList.get(i).length() - 1));
             }
@@ -176,4 +176,16 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
     public Matches getMatches(){
         return this.matches;
     }
+
+    public void updateMatchesFile(String puuid){
+        ArrayList<Match> matchesList = new ArrayList<>();
+        ArrayList<String> matchesIDList = getMatchesID(puuid);
+        for (String matchID: matchesIDList) {
+            matchesList.add(getMatch(matchID));
+        }
+        this.matchesList = matchesList;
+        this.matches = this.matchesFactory.create(matchesList);
+        saveMatches();
+    }
+
 }
