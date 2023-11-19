@@ -10,7 +10,7 @@ public class LoginOutputdata {
         this.useCaseFailed = useCaseFailed;
     }
 
-    String getPlayerID() {
+    public String getPlayerID() {
         return playerID;
     }
 
