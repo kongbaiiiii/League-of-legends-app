@@ -44,6 +44,13 @@ class MatchData implements Match {
     private final ArrayList<Boolean> winList;
     private String matchid;
     private final ArrayList<Long> gameStartTimestampList;
+
+    private final ArrayList<Long> bountyLevelList;
+
+    private final ArrayList<Long> longestTimeSpentLivingList;
+    private final ArrayList<Long> timeCCingOthersList;
+    private final ArrayList<Long> totalTimeSpentDeadList;
+    private final ArrayList<Boolean> gameEndedInEarlySurrenderList;
     private String gamemode;
 
     MatchData(ArrayList<String> puuidList, ArrayList<String> summonerNameList,
@@ -57,7 +64,12 @@ class MatchData implements Match {
               ArrayList<Long> levelList, ArrayList<Long> csList, ArrayList<Boolean> winList,
               String matchid, ArrayList<Long> kdaList,
               ArrayList<Long> goldEarnedList, String gamemode,
-              ArrayList<Long> gameStartTimestampList) {
+              ArrayList<Long> gameStartTimestampList,
+              ArrayList<Long> bountyLevelList,
+              ArrayList<Long> longestTimeSpentLivingList,
+              ArrayList<Long> timeCCingOthersList,
+              ArrayList<Long> totalTimeSpentDeadList,
+              ArrayList<Boolean> gameEndedInEarlySurrenderList) {
         this.puuidList = puuidList;
         this.summonerNameList = summonerNameList;
         this.championIdList = championIdList;
@@ -82,8 +94,11 @@ class MatchData implements Match {
         this.gameStartTimestampList = gameStartTimestampList;
         this.gamemode = gamemode;
         this.matchid = matchid;
-
-
+        this.bountyLevelList = bountyLevelList;
+        this.longestTimeSpentLivingList = longestTimeSpentLivingList;
+        this.timeCCingOthersList = timeCCingOthersList;
+        this.totalTimeSpentDeadList = totalTimeSpentDeadList;
+        this.gameEndedInEarlySurrenderList = gameEndedInEarlySurrenderList;
     }
 
     public int getPlayerIndexByPlayerID(String PlayerID) {
@@ -127,6 +142,11 @@ class MatchData implements Match {
         Data.put("kda", kdaList.get(i));
         Data.put("gameStartTimestamp", gameStartTimestampList.get(i));
         Data.put("gamemode", gamemode);
+        Data.put("bountyLevel", bountyLevelList.get(i));
+        Data.put("gameEndedInEarlySurrender", gameEndedInEarlySurrenderList.get(i));
+        Data.put("longestTimeSpentLiving", longestTimeSpentLivingList.get(i));
+        Data.put("timeCCingOthers", timeCCingOthersList.get(i));
+        Data.put("totalTimeSpentDead", totalTimeSpentDeadList.get(i));
         return Data;
     }
 }

@@ -116,6 +116,11 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
         ArrayList<Long> csList = new ArrayList<Long>();
         ArrayList<Boolean> winList = new ArrayList<Boolean>();
         ArrayList<Long> gameStartTimestampList = new ArrayList<>();
+        ArrayList<Long> bountyLevelList = new ArrayList<>();
+        ArrayList<Long> longestTimeSpentLivingList = new ArrayList<>();
+        ArrayList<Long> timeCCingOthersList = new ArrayList<>();
+        ArrayList<Long> totalTimeSpentDeadList = new ArrayList<>();
+        ArrayList<Boolean> gameEndedInEarlySurrenderList = new ArrayList<>();
 
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
@@ -147,6 +152,11 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
                 winList.add(participants.getJSONObject(i).getBoolean("win"));
                 goldEarnedList.add(participants.getJSONObject(i).getLong("goldEarned"));
                 gameStartTimestampList.add(info.getLong("gameStartTimestamp"));
+                bountyLevelList.add(participants.getJSONObject(i).getLong("bountyLevel"));
+                gameEndedInEarlySurrenderList.add(participants.getJSONObject(i).getBoolean("gameEndedInEarlySurrender"));
+                longestTimeSpentLivingList.add(participants.getJSONObject(i).getLong("longestTimeSpentLiving"));
+                timeCCingOthersList.add(participants.getJSONObject(i).getLong("timeCCingOthers"));
+                totalTimeSpentDeadList.add(participants.getJSONObject(i).getLong("totalTimeSpentDead"));
                 long assists = participants.getJSONObject(i).getLong("assists");
                 long deaths = participants.getJSONObject(i).getLong("deaths");
                 long kills = participants.getJSONObject(i).getLong("kills");
@@ -163,7 +173,8 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
             return matchFactory.create(puuidList, summonerNameList, assistsList, deathsList,
                     killsList, championIdList, championNameList, item0List, item1List, item2List,
                     item3List, item4List, item5List, item6List, totalDamageDealtList, totalDamageTakenList,
-                    levelList, csList, winList, matchId, kdaList, goldEarnedList, gamemode, gameStartTimestampList);
+                    levelList, csList, winList, matchId, kdaList, goldEarnedList, gamemode, gameStartTimestampList,
+                    bountyLevelList, longestTimeSpentLivingList, timeCCingOthersList, totalTimeSpentDeadList, gameEndedInEarlySurrenderList);
         } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
