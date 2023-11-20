@@ -14,12 +14,5 @@ public class CheckPlayerStatDetailsState {
     }
 
     public CheckPlayerStatDetailsState() {}
-
-    public List<PlayerStats> getPlayerStats() {
-        return this.playerStats;
     }
 
-    public void setPlayerStats(List<PlayerStats> playerStats) {
-        this.playerStats = playerStats;
-    }
-}

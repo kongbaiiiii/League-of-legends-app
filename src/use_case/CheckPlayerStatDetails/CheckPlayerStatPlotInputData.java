@@ -1,9 +1,9 @@
 package use_case.CheckPlayerStatDetails;
 
-public class CheckPlayerStatDetailsInputData {
+public class CheckPlayerStatPlotInputData {
     private final String playerId;
 
-    public CheckPlayerStatDetailsInputData(String playerId) {
+    public CheckPlayerStatPlotInputData(String playerId) {
         this.playerId = playerId;
     }
 

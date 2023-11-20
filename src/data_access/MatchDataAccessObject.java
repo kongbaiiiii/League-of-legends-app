@@ -1,9 +1,6 @@
 package data_access;
 
-import entity.Match;
-import entity.MatchFactory;
-import entity.Matches;
-import entity.MatchesFactory;
+import entity.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -11,13 +8,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.CheckMatch.CheckMatchDataAccessInterface;
+import use_case.CheckPlayerStatDetails.CheckPlayerStatPlotDataAccessInterface;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
+public class MatchDataAccessObject implements CheckMatchDataAccessInterface, CheckPlayerStatPlotDataAccessInterface {
 
     private final File matchFile;
     private String authoKey;
