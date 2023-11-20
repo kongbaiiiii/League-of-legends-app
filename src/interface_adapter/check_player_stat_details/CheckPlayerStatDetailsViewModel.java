@@ -14,14 +14,6 @@ public class CheckPlayerStatDetailsViewModel {
         super();
     }
 
-    public List<PlayerStats> getPlayerStats() {
-        return state.getPlayerStats();
-    }
-
-    public void setPlayerStats(List<PlayerStats> playerStats) {
-        state.setPlayerStats(playerStats);
-        firePropertyChanged();
-    }
 
     public void setState(CheckPlayerStatDetailsState state) {
         this.state = state;
