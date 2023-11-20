@@ -31,7 +31,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     private final JButton update;
 
-    private final JButton checkMatch;
+    private final JButton checkMatch1;
+//TODO There will be 20 checkMatch buttons in total, and each button should correspond to a specific matchID.
 
 //    private final JButton logout;
 //    private final JButton checkPlayerStatsDetail;
@@ -49,7 +50,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 //        cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
 //        buttons.add(cancel);
         update = new JButton(loggedInViewModel.UPDATA_STAT_BUTTON_LABEL);
-        checkMatch = new JButton(loggedInViewModel.CHECK_MATCH_DETAIL_BUTTON_LABEL);
+        checkMatch1 = new JButton(loggedInViewModel.CHECK_MATCH_DETAIL_BUTTON_LABEL);
 
         update.addActionListener(new ActionListener() {
             @Override
@@ -60,11 +61,12 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                 }
             });
 
-        checkMatch.addActionListener(new ActionListener() {
+        checkMatch1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource().equals(checkMatch)){
-                    checkMatchController.execute();
+                if (e.getSource().equals(checkMatch1)){
+                    checkMatchController.execute("NA1_4829676591");
+                    //TODO, substitute the matchID with an actual one. This matchID is just for demo.
                 }
             }
         });
@@ -72,7 +74,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(update);
-        this.add(checkMatch);
+        this.add(checkMatch1);
     }
 
     @Override

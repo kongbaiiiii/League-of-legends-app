@@ -7,18 +7,19 @@ import entity.MatchFactory;
 
 public class CheckMatchInteractor implements CheckMatchInputBoundary {
     final CheckMatchOutputBoundary matchPresenter;
-    final MatchDataAccessObject matchDataAccessObject;
+    final CheckMatchDataAccessInterface matchDataAccessObject;
     final MatchFactory matchFactory;
 
     public CheckMatchInteractor( CheckMatchOutputBoundary matchPresenter,
-                                MatchDataAccessObject matchDataAccessObject, MatchFactory matchFactory){
+                                CheckMatchDataAccessInterface matchDataAccessObject, MatchFactory matchFactory){
         this.matchPresenter = matchPresenter;
         this.matchDataAccessObject = matchDataAccessObject;
         this.matchFactory = matchFactory;
     }
 
     @Override
-    public void execute(String matchId){
+    public void execute(CheckMatchInputData checkMatchInputData){
+        String matchId = checkMatchInputData.getMatchId();
         Match match = matchDataAccessObject.getMatch(matchId);
         CheckMatchOutputdata checkMatchOutputdata = new CheckMatchOutputdata(match);
         matchPresenter.prepareSuccessView();
