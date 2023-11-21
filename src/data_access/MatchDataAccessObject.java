@@ -54,6 +54,7 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
             writer = new BufferedWriter(new FileWriter(matchFile));
             for (Match match : matchesList) {
                 writer.write(match.getMatchID());
+                writer.write("\n");
             }
             writer.close();
         } catch (IOException e) {
@@ -78,7 +79,7 @@ public class MatchDataAccessObject implements CheckMatchDataAccessInterface {
         try {
             Response response = client.newCall(request).execute();
             assert response.body() != null;
-            JSONObject responseBody = new JSONObject(response.body().string());
+            //JSONObject responseBody = new JSONObject(response.body().string());
             String input = response.body().string();
             String a = input.substring(1, input.length() - 1);
             String[] elements = a.split(",");
