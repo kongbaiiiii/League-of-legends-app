@@ -29,9 +29,8 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, L
         this.playerFactory = playerFactory;
         playerFile = new File(playerCSVPath);
         authoKey = getKey();
-
         if (playerFile.length() == 0) {
-            savePlayer();
+            createFile();
         } else {
             try (BufferedReader reader = new BufferedReader(new FileReader(playerFile))) {
                 String playerID = reader.readLine();
@@ -41,22 +40,21 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, L
         }
     }
 
+    private void createFile(){
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter(playerFile));
+            writer.write("");
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private String getKey() throws IOException {
         File keyFile = new File("authoKey.csv");
         try (BufferedReader reader = new BufferedReader(new FileReader(keyFile))) {
             return reader.readLine();
-        }
-    }
-
-    private void savePlayer() {
-        BufferedWriter writer;
-        try {
-            writer = new BufferedWriter(new FileWriter(playerFile));
-            writer.write(player.getPlayerID());
-            writer.write(player.getPuuiD());
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -94,6 +92,15 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, L
     @Override
     public void save(Player player) {
         this.player = player;
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter(playerFile));
+            writer.write(player.getPlayerID());
+            writer.write(player.getPuuiD());
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
