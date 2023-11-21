@@ -1,5 +1,5 @@
 package use_case.CheckPlayerStatDetails;
 
-public interface CheckPlayerStatDetailsInputBoundary {
+public interface CheckPlayerStatPlotInputBoundary {
     void execute(String playerId);
 }

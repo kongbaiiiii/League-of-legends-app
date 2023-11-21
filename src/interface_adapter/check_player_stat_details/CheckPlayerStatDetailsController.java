@@ -1,11 +1,11 @@
 package interface_adapter.check_player_stat_details;
 
-import use_case.CheckPlayerStatDetails.CheckPlayerStatDetailsInputBoundary;
+import use_case.CheckPlayerStatDetails.CheckPlayerStatPlotInputBoundary;
 
 public class CheckPlayerStatDetailsController {
-    private final CheckPlayerStatDetailsInputBoundary interactor;
+    private final CheckPlayerStatPlotInputBoundary interactor;
 
-    public CheckPlayerStatDetailsController(CheckPlayerStatDetailsInputBoundary interactor) {
+    public CheckPlayerStatDetailsController(CheckPlayerStatPlotInputBoundary interactor) {
         this.interactor = interactor;
     }
 

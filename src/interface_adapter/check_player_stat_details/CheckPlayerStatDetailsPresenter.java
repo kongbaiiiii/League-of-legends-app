@@ -1,18 +1,16 @@
 package interface_adapter.check_player_stat_details;
 
-import use_case.CheckPlayerStatDetails.CheckPlayerStatDetailsOutputBoundary;
-import interface_adapter.ViewManagerModel;
-import use_case.CheckPlayerStatDetails.CheckPlayerStatDetailsOutputdata;
+import use_case.CheckPlayerStatDetails.CheckPlayerStatPlotOutputBoundary;
+import use_case.CheckPlayerStatDetails.CheckPlayerStatPlotOutputdata;
 
-public class CheckPlayerStatDetailsPresenter implements CheckPlayerStatDetailsOutputBoundary {
+public class CheckPlayerStatDetailsPresenter implements CheckPlayerStatPlotOutputBoundary {
     private final CheckPlayerStatDetailsViewModel viewModel;
 
     public CheckPlayerStatDetailsPresenter(CheckPlayerStatDetailsViewModel viewModel) {
         this.viewModel = viewModel;
     }
 
-    public void prepareSuccessView(CheckPlayerStatDetailsOutputdata outputData) {
-        viewModel.setPlayerStats(outputData.getPlayerStats());
+    public void prepareSuccessView(CheckPlayerStatPlotOutputdata outputData) {
         viewModel.setSuccess(true);
     }
 
