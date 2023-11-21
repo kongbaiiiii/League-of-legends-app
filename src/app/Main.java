@@ -1,4 +1,5 @@
 package app;
+
 import data_access.AllPurposeDataAccessObject;
 import data_access.MatchDataAccessObject;
 import data_access.PlayerDataAccessObject;
@@ -33,12 +34,19 @@ public class Main {
 
         LoginViewModel loginViewModel = new LoginViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
-        CheckMatchViewModel checkMatchViewModel = new CheckMatchViewModel();
         UpdateViewModel updateViewModel = new UpdateViewModel();
+        CheckMatchViewModel checkMatchViewModel = new CheckMatchViewModel();
 
         PlayerDataAccessObject playerDataAccessObject;
         try {
             playerDataAccessObject = new PlayerDataAccessObject("player.csv", new NormalPlayerFactory());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        AllPurposeDataAccessObject allPurposeDataAccessObject;
+        try {
+            allPurposeDataAccessObject = new AllPurposeDataAccessObject("matchdata.csv", new NormalMatchFactory(), new NormalMatchesFactory(), "player.csv", new NormalPlayerFactory());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -50,21 +58,10 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        AllPurposeDataAccessObject allPurposeDataAccessObject;
-        try {
-            allPurposeDataAccessObject = new AllPurposeDataAccessObject("matchdata.csv", new NormalMatchFactory(),
-                    new NormalMatchesFactory(), "player.csv", new NormalPlayerFactory());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, playerDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        LoggedInView loggedInView = LoggedInViewFactory.create(viewManagerModel,
-                updateViewModel, loggedInViewModel,
-                checkMatchViewModel, allPurposeDataAccessObject, matchDataAccessObject);
+        LoggedInView loggedInView = LoggedInViewFactory.create(viewManagerModel, updateViewModel, loggedInViewModel, checkMatchViewModel, allPurposeDataAccessObject, matchDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
 
         viewManagerModel.setActiveView(loginView.viewName);
