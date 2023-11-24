@@ -1,10 +1,10 @@
 package interface_adapter.return_mainpage;
 
-import use_case.return_mainpage.ReturnMainDataInputBoundary;
+import use_case.return_mainpage.ReturnMainInputBoundary;
 
 public class ReturnMainController {
-    final ReturnMainDataInputBoundary returnMainInteractor;
-    public ReturnMainController(ReturnMainDataInputBoundary returnMainInteractor){
+    final ReturnMainInputBoundary returnMainInteractor;
+    public ReturnMainController(ReturnMainInputBoundary returnMainInteractor){
         this.returnMainInteractor = returnMainInteractor;
     }
 
