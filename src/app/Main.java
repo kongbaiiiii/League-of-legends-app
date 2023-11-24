@@ -17,6 +17,7 @@ import view.ViewManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class Main {
@@ -64,10 +65,19 @@ public class Main {
         LoggedInView loggedInView = LoggedInViewFactory.create(viewManagerModel, updateViewModel, loggedInViewModel, checkMatchViewModel, allPurposeDataAccessObject, matchDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
 
-        viewManagerModel.setActiveView(loginView.viewName);
-        viewManagerModel.firePropertyChanged();
+        File playerFile = new File("player.csv");
+        if (playerFile.length() == 0) {
+            viewManagerModel.setActiveView(loginView.viewName);
+            viewManagerModel.firePropertyChanged();
+        } else {
+            viewManagerModel.setActiveView(loggedInView.viewName);
+            viewManagerModel.firePropertyChanged();
+        }
 
         application.pack();
-        application.setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run(){application.setVisible(true);}
+        });
     }
 }

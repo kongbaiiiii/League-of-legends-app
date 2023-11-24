@@ -54,7 +54,7 @@ public class StatPlotDataAccessObject {
     }
 
     private void plot(ArrayList<String> gameStartTimeList, ArrayList<Object> dataList, String image_title, String outputName) {
-        int WIDTH = 550;
+        int WIDTH = 590;
         int HEIGHT = 180;
         String backgroundColor = "rgb(20, 20, 20)";
 

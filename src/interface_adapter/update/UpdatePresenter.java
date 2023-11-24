@@ -12,7 +12,7 @@ public class UpdatePresenter implements UpdateOutputBoundary {
 
     private final LoggedInViewModel loggedInViewModel;
 
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     public UpdatePresenter(UpdateViewModel updateViewModel, LoggedInViewModel loggedInViewModel,
                            ViewManagerModel viewManagerModel) {

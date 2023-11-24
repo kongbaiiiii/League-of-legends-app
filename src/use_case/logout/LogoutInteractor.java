@@ -1,12 +1,12 @@
 package use_case.logout;
 
-public class Logoutinteractor implements LogoutInputBoundary {
+public class LogoutInteractor implements LogoutInputBoundary {
 
     final LogoutPlayerDataAccessInterface playerDataAccessObject;
 
     final LogoutOutputBoundary playerPresenter;
 
-    public Logoutinteractor(LogoutPlayerDataAccessInterface playerDataAccessObject,
+    public LogoutInteractor(LogoutPlayerDataAccessInterface playerDataAccessObject,
                             LogoutOutputBoundary playerPresenter) {
         this.playerDataAccessObject = playerDataAccessObject;
         this.playerPresenter = playerPresenter;
