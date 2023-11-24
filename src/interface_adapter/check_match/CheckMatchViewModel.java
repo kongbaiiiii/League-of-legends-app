@@ -6,6 +6,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class CheckMatchViewModel extends ViewModel {
+
+    public final String RETURN_MAIN_BUTTON_LABEL = "Return Main";
     private CheckMatchState state = new CheckMatchState();
 
     public CheckMatchViewModel(){super("Check Match");}
