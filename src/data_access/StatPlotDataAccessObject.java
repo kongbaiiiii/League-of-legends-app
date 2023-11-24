@@ -34,7 +34,8 @@ public class StatPlotDataAccessObject {
         ArrayList<Object> data3 = new ArrayList<>();
         ArrayList<Object> data4 = new ArrayList<>();
         ArrayList<Object> data5 = new ArrayList<>();
-        List<Match> matchList = matches.getAllMatches();
+        ArrayList<Match> matchList = matches.getAllMatches();
+        //      TODO: sort matchList by the date
         for (Match match : matchList) {
             int playerIndex = match.getPlayerIndexByPlayerID(player.getPlayerID());
             Map<String, Object> matchData = match.getDataByPlayerIndex(playerIndex);
@@ -53,8 +54,8 @@ public class StatPlotDataAccessObject {
     }
 
     private void plot(ArrayList<String> gameStartTimeList, ArrayList<Object> dataList, String image_title, String outputName) {
-        int WIDTH = 600;
-        int HEIGHT = 200;
+        int WIDTH = 550;
+        int HEIGHT = 180;
         String backgroundColor = "rgb(20, 20, 20)";
 
         Map<String, Object> data = setUpDataMap(dataList, gameStartTimeList);
@@ -116,19 +117,22 @@ public class StatPlotDataAccessObject {
     }
 
     private Map<String, Object> setUpScalesMap() {
-        int FONTSIZE = 10;
+        int FONTSIZEX = 9;
+        int FONTSIZEY = 10;
         Map<String, Object> scales = new HashMap<>();
         ArrayList<Map<String, Object>> xAxesStyle = new ArrayList<>();
         Map<String, Object> ticksX = new HashMap<>();
         Map<String, Object> fontStyleX = new HashMap<>();
-        fontStyleX.put("fontSize", FONTSIZE);
+        fontStyleX.put("fontSize", FONTSIZEX);
+        fontStyleX.put("fontColor", "rgb(231, 237, 238)");
         ticksX.put("ticks", fontStyleX);
         xAxesStyle.add(ticksX);
         scales.put("xAxes", xAxesStyle);
         ArrayList<Map<String, Object>> yAxesStyle = new ArrayList<>();
         Map<String, Object> ticksY = new HashMap<>();
         Map<String, Object> fontStyleY = new HashMap<>();
-        fontStyleY.put("fontSize", FONTSIZE);
+        fontStyleY.put("fontSize", FONTSIZEY);
+        fontStyleY.put("fontColor", "rgb(231, 237, 238)");
         ticksY.put("ticks", fontStyleY);
         yAxesStyle.add(ticksY);
         scales.put("yAxes", yAxesStyle);
@@ -136,7 +140,7 @@ public class StatPlotDataAccessObject {
     }
 
     private Map<String, Object> setUpTitleMap(String outputName) {
-        int FONTSIZE = 16;
+        int FONTSIZE = 14;
         String FONTCOLOR = "rgb(75, 192, 192)";
         Map<String, Object> title = new HashMap<>();
         title.put("display", true);
@@ -165,7 +169,7 @@ public class StatPlotDataAccessObject {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
 
         // Format the LocalDateTime
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy:HH");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy:HH"); //MM/dd/yy:HH
         return localDateTime.format(formatter);
     }
 }

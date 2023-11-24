@@ -7,9 +7,9 @@ import java.beans.PropertyChangeSupport;
 
 public class UpdateViewModel extends ViewModel {
 
-    private final UpdateState state = new UpdateState();
+    private UpdateState state = new UpdateState();
 
-    public final String UPDATE_SUCCESSFUL_MESSAGE = String.format("You have successfully updated %s's statistics", state.getUsername());
+    public String UPDATE_SUCCESSFUL_MESSAGE = "You have successfully updated %s's statistics";
 
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -29,6 +29,14 @@ public class UpdateViewModel extends ViewModel {
     }
 
     public String getUPDATE_SUCCESSFUL_MESSAGE() {
-        return UPDATE_SUCCESSFUL_MESSAGE;
+        return String.format(UPDATE_SUCCESSFUL_MESSAGE, state.getUsername());
+    }
+
+    public void setState(UpdateState state){
+        this.state = state;
+    }
+
+    public UpdateState getState(){
+        return state;
     }
 }

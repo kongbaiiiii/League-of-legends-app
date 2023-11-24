@@ -42,4 +42,11 @@ public class AllPurposeDataAccessObject implements UpdateDataAccessInterface {
     public String getPuuid(String playerID) {
         return playerDataAccessObject.getPuuid(playerID);
     }
+
+    public void updateStatPlotDataAccessObject(){
+        Matches matches = matchDataAccessObject.getMatches();
+        Player player = playerDataAccessObject.getPlayer();
+        this.statPlotDataAccessObject = new StatPlotDataAccessObject(matches, player);
+    }
 }
+

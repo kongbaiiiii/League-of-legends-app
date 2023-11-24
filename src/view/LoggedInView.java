@@ -1,15 +1,19 @@
 package view;
 
 import interface_adapter.check_match.CheckMatchController;
+import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.update.UpdateController;
+import interface_adapter.update.UpdateState;
 import interface_adapter.update.UpdateViewModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.*;
 
 public class LoggedInView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -32,6 +36,10 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     private final JButton update;
 
     private final JButton checkMatch1;
+
+    private ImageIcon icon1 = new ImageIcon("images/stat1.png");
+    private ImageIcon icon2 = new ImageIcon("images/stat2.png");
+    private ImageIcon icon3 = new ImageIcon("images/stat3.png");
 //TODO There will be 20 checkMatch buttons in total, and each button should correspond to a specific matchID.
 
 //    private final JButton logout;
@@ -44,19 +52,34 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.updateViewModel = updateViewModel;
         this.checkMatchController = checkMatchController;
 
-        JPanel buttons = new JPanel();
-//        signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
-//        buttons.add(signUp);
-//        cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
-//        buttons.add(cancel);
         update = new JButton(loggedInViewModel.UPDATA_STAT_BUTTON_LABEL);
         checkMatch1 = new JButton(loggedInViewModel.CHECK_MATCH_DETAIL_BUTTON_LABEL);
+        update.setPreferredSize(new Dimension(150, 50));
+        checkMatch1.setPreferredSize(new Dimension(150, 50));
 
         update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                File playerFile = new File("player.csv");
+                String playerID;
+                try (BufferedReader reader = new BufferedReader(new FileReader(playerFile))) {
+                    playerID = reader.readLine();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                loggedInViewModel.setLoggedInPlayer(playerID);
+                LoggedInState loggedInState = loggedInViewModel.getState();
+                loggedInState.setPlayerID(playerID);
+                loggedInViewModel.setState(loggedInState);
+                UpdateState updateState = updateViewModel.getState();
+                updateState.setUsername(playerID);
+                updateViewModel.setState(updateState);
                 if (e.getSource().equals(update)) {
-                    updateController.execute(loggedInViewModel.getLoggedInPlayer(), "kills", "deathds", "assissts", "cs", "goldEarned");
+                    updateController.execute(playerID, "kills", "deaths", "assists", "cs", "goldEarned");
+                    icon1 = new ImageIcon("images/stat1.png");
+                    icon2 = new ImageIcon("images/stat2.png");
+                    icon3 = new ImageIcon("images/stat3.png");
+                    repaint();
                 }
                 }
             });
@@ -71,10 +94,51 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
             }
         });
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setPreferredSize(new Dimension(900, 650));
+        this.setLayout(new BorderLayout());
 
-        this.add(update);
-        this.add(checkMatch1);
+        JPanel rightPanel = createPanel(600, 650);
+        this.add(rightPanel, BorderLayout.EAST);
+
+        JPanel leftPanel = new JPanel(new GridLayout(2, 1));
+        JPanel leftTopSubPanel = createPanel(300, 300);
+        JPanel leftBottomSubPanel = createPanel(300, 350);
+
+        leftTopSubPanel.add(update);
+        JScrollPane matchesScrollPane = new JScrollPane();
+        leftBottomSubPanel.add(matchesScrollPane);
+
+        leftPanel.add(leftTopSubPanel);
+        leftPanel.add(leftBottomSubPanel);
+        this.add(leftPanel, BorderLayout.WEST);
+
+        JLabel label1 = new JLabel(icon1);
+        JLabel label2 = new JLabel(icon2);
+        JLabel label3 = new JLabel(icon3);
+        rightPanel.add(label1);
+        rightPanel.add(label2);
+        rightPanel.add(label3);
+        rightPanel.add(checkMatch1);
+
+        leftTopSubPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        leftBottomSubPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        rightPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        // Add panels to the frame
+        this.add(leftPanel, BorderLayout.WEST);
+        this.add(rightPanel, BorderLayout.CENTER);
+
+        this.setMinimumSize(new Dimension(900, 600));
+        this.setMaximumSize(new Dimension(900, 600));
+
+
+    }
+
+    private static JPanel createPanel(int width, int height) {
+        JPanel panel = new JPanel();
+        panel.setPreferredSize(new Dimension(width, height));
+
+        return panel;
     }
 
     @Override
@@ -84,6 +148,5 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
     }
 }

@@ -1,7 +1,5 @@
 package interface_adapter.update;
 
-import java.util.ArrayList;
-
 public class UpdateState {
     private String username = "";
 

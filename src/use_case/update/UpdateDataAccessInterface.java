@@ -16,4 +16,6 @@ public interface UpdateDataAccessInterface {
 
     String getPuuid(String playerID);
 
+    void updateStatPlotDataAccessObject();
+
 }

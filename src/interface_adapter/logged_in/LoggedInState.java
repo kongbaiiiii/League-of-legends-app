@@ -1,5 +1,6 @@
 package interface_adapter.logged_in;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class LoggedInState {

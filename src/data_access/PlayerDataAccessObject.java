@@ -96,6 +96,7 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, L
         try {
             writer = new BufferedWriter(new FileWriter(playerFile));
             writer.write(player.getPlayerID());
+            writer.write('\n');
             writer.write(player.getPuuiD());
             writer.close();
         } catch (IOException e) {
