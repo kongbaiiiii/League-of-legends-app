@@ -106,8 +106,21 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
         leftTopSubPanel.add(update);
         JScrollPane matchesScrollPane = new JScrollPane();
-        leftBottomSubPanel.add(matchesScrollPane);
+        matchesScrollPane.setPreferredSize(new Dimension(280, 310));
 
+        JPanel matchPanel = new JPanel();
+        matchPanel.setLayout(new BoxLayout(matchPanel, BoxLayout.Y_AXIS));
+
+        // Add sub-panels with text to the main panel
+        for (int i = 1; i <= 20; i++) {
+            JPanel subPanel = createSubPanel("Text in Panel " + i);
+            matchPanel.add(subPanel);
+        }
+
+        // Add the main panel to the JScrollPane
+        matchesScrollPane.setViewportView(matchPanel);
+
+        leftBottomSubPanel.add(matchesScrollPane);
         leftPanel.add(leftTopSubPanel);
         leftPanel.add(leftBottomSubPanel);
         this.add(leftPanel, BorderLayout.WEST);
@@ -139,6 +152,15 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         panel.setPreferredSize(new Dimension(width, height));
 
         return panel;
+    }
+
+    private static JPanel createSubPanel(String text) {
+        JPanel subPanel = new JPanel();
+        JLabel label = new JLabel(text);
+        subPanel.add(label);
+        subPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Optional: Add a border for better visibility
+//        subPanel.setPreferredSize(new Dimension());
+        return subPanel;
     }
 
     @Override
