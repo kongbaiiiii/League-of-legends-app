@@ -1,5 +1,5 @@
 package use_case.return_mainpage;
 
-public interface ReturnMainDataInputBoundary {
+public interface ReturnMainInputBoundary {
     void execute();
 }

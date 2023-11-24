@@ -1,5 +1,5 @@
 package use_case.return_mainpage;
 
-public interface ReturnMainDataOutputBoundary {
+public interface ReturnMainOutputBoundary {
     void prepareSuccessView();
 }
