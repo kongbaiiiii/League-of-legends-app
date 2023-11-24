@@ -11,6 +11,7 @@ import interface_adapter.check_match.CheckMatchViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.update.UpdateViewModel;
+import view.CheckMatchView;
 import view.LoggedInView;
 import view.LoginView;
 import view.ViewManager;
@@ -58,6 +59,9 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        CheckMatchView checkMatchView = CheckMatchViewFactory.create(viewManagerModel, checkMatchViewModel, loggedInViewModel);
+        views.add(checkMatchView, checkMatchView.viewName);
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, playerDataAccessObject);
         views.add(loginView, loginView.viewName);

@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.*;
+import java.util.ArrayList;
 
 import static java.awt.Font.PLAIN;
 
@@ -51,6 +52,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     private JPanel stat2Panel;
     private JPanel stat3Panel;
 
+    private ArrayList<String> matchIDList = new ArrayList<>();
+
     private ImageIcon poroIcon = new ImageIcon("images/poro.png");
 
 //TODO There will be 20 checkMatch buttons in total, and each button should correspond to a specific matchID.
@@ -64,6 +67,16 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.updateController = updateController;
         this.updateViewModel = updateViewModel;
         this.checkMatchController = checkMatchController;
+
+        File matchIDFile = new File("matchdata.csv");
+        try (BufferedReader reader = new BufferedReader(new FileReader(matchIDFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                matchIDList.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         try {
             stat1Image = ImageIO.read(new File("images/stat1.png"));
@@ -128,12 +141,12 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         matchesScrollPane.setPreferredSize(new Dimension(280, 310));
         JPanel matchPanel = new JPanel();
         matchPanel.setLayout(new BoxLayout(matchPanel, BoxLayout.Y_AXIS));
-        for (int i = 1; i <= 20; i++) {
-            JPanel subPanel = createSubPanel(checkMatchController,"Text in Panel " + i,
-                    loggedInViewModel.CHECK_MATCH_DETAIL_BUTTON_LABEL, "NA1_4829676591");
-            //TODO, substitute the matchID with an actual one. This matchID is just for demo. "NA1_4829676591"
+        for (String matchID: matchIDList) {
+            JPanel subPanel = createSubPanel(checkMatchController,"Text in Panel",
+                    loggedInViewModel.CHECK_MATCH_DETAIL_BUTTON_LABEL, matchID);
             matchPanel.add(subPanel);
         }
+
         matchesScrollPane.setViewportView(matchPanel);
         matchesScrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         leftBottomSubPanel.add(matchesScrollPane);
@@ -229,6 +242,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(checkMatchButton)) {
                     checkMatchController.execute(matchID);
+                    System.out.println(matchID);
                 }
             }
         });
