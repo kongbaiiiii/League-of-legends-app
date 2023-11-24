@@ -2,9 +2,9 @@ package interface_adapter.return_mainpage;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInViewModel;
-import use_case.return_mainpage.ReturnMainDataOutputBoundary;
+import use_case.return_mainpage.ReturnMainOutputBoundary;
 
-public class ReturnMainPresenter implements ReturnMainDataOutputBoundary {
+public class ReturnMainPresenter implements ReturnMainOutputBoundary {
     private final LoggedInViewModel loggedInViewModel;
     private ViewManagerModel viewManagerModel;
 
