@@ -55,7 +55,6 @@ public class CheckMatchView extends JPanel implements ActionListener, PropertyCh
         lowerPanel.setPreferredSize(new Dimension(900, 500));
         for (int i = 1; i <= 10; i++) {
             JPanel subPanel = createSubPanel("Text in Panel " + i);
-            subPanel.add(subPanel);
             lowerPanel.add(subPanel);
         }
         this.add(lowerPanel, BorderLayout.SOUTH);
