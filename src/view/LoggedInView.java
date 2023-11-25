@@ -3,6 +3,7 @@ package view;
 import interface_adapter.check_match.CheckMatchController;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.logout.LogoutController;
 import interface_adapter.update.UpdateController;
 import interface_adapter.update.UpdateState;
 import interface_adapter.update.UpdateViewModel;
@@ -32,6 +33,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     private final CheckMatchController checkMatchController;
 
+    private final LogoutController logoutController;
+
 //    private final LogoutController logoutController;
 
 
@@ -52,6 +55,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     private JPanel stat2Panel;
     private JPanel stat3Panel;
 
+    private String playerID;
+
     private ArrayList<String> matchIDList = new ArrayList<>();
 
     private ImageIcon poroIcon = new ImageIcon("images/poro.png");
@@ -62,11 +67,14 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 //    private final JButton checkPlayerStatsDetail;
 
 
-    public LoggedInView(LoggedInViewModel loggedInViewModel, UpdateController updateController, UpdateViewModel updateViewModel, CheckMatchController checkMatchController) {
+    public LoggedInView(LoggedInViewModel loggedInViewModel, UpdateController updateController,
+                        UpdateViewModel updateViewModel, CheckMatchController checkMatchController,
+                        LogoutController logoutController) {
         this.loggedInViewModel = loggedInViewModel;
         this.updateController = updateController;
         this.updateViewModel = updateViewModel;
         this.checkMatchController = checkMatchController;
+        this.logoutController = logoutController;
 
         File matchIDFile = new File("matchdata.csv");
         try (BufferedReader reader = new BufferedReader(new FileReader(matchIDFile))) {
@@ -95,6 +103,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         checkPlayerPlot = new JButton(loggedInViewModel.CHECK_PLAYER_PLOT_BUTTON_LABEL);
         checkPlayerPlot.setPreferredSize(new Dimension(150, 50));
         update.setPreferredSize(new Dimension(150, 50));
+        logout.setPreferredSize(new Dimension(150, 50));
 
         this.setPreferredSize(new Dimension(900, 650));
         this.setLayout(new BorderLayout());
@@ -122,7 +131,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         c.gridx = 0;
         c.gridy = 2;
         BufferedReader reader;
-        String playerID;
         try {
             reader = new BufferedReader(new FileReader("player.csv"));
             playerID = reader.readLine();
@@ -132,9 +140,13 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         JLabel playerIDLabel = new JLabel(playerID);
         playerIDLabel.setFont(new Font("Lucida Grande", PLAIN, 15));
         leftTopSubPanel.add(playerIDLabel, c);
+        JPanel updateAndLogout = new JPanel(new GridLayout(1, 2));
+        updateAndLogout.setPreferredSize(new Dimension(300, 50));
+        updateAndLogout.add(update);
+        updateAndLogout.add(logout);
         c.gridx = 0;
         c.gridy = 3;
-        leftTopSubPanel.add(update, c);
+        leftTopSubPanel.add(updateAndLogout, c);
 
         //leftBottomSubPanel
         JScrollPane matchesScrollPane = new JScrollPane();
@@ -217,7 +229,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(logout)) {
-                    //TODO: Invoke logout controller
+                    logoutController.execute();
                 }
             }
         });
