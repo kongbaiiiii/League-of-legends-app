@@ -9,7 +9,7 @@ import entity.NormalPlayerFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.check_match.CheckMatchViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.login.LoginViewModel;
+import interface_adapter.login.LogInViewModel;
 import interface_adapter.update.UpdateViewModel;
 import view.CheckMatchView;
 import view.LoggedInView;
@@ -34,7 +34,7 @@ public class Main {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-        LoginViewModel loginViewModel = new LoginViewModel();
+        LogInViewModel loginViewModel = new LogInViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         UpdateViewModel updateViewModel = new UpdateViewModel();
         CheckMatchViewModel checkMatchViewModel = new CheckMatchViewModel();
@@ -48,7 +48,8 @@ public class Main {
 
         AllPurposeDataAccessObject allPurposeDataAccessObject;
         try {
-            allPurposeDataAccessObject = new AllPurposeDataAccessObject("matchdata.csv", new NormalMatchFactory(), new NormalMatchesFactory(), "player.csv", new NormalPlayerFactory());
+            allPurposeDataAccessObject = new AllPurposeDataAccessObject("matchdata.csv", new NormalMatchFactory(),
+                    new NormalMatchesFactory(), "player.csv", new NormalPlayerFactory());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -66,7 +67,8 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, playerDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        LoggedInView loggedInView = LoggedInViewFactory.create(viewManagerModel, updateViewModel, loggedInViewModel, checkMatchViewModel, allPurposeDataAccessObject, matchDataAccessObject);
+        LoggedInView loggedInView = LoggedInViewFactory.create(viewManagerModel, updateViewModel, loggedInViewModel, loginViewModel,
+                checkMatchViewModel, allPurposeDataAccessObject, matchDataAccessObject, playerDataAccessObject);
         views.add(loggedInView, loggedInView.viewName);
 
         File playerFile = new File("player.csv");
