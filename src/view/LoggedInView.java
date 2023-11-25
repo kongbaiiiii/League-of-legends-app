@@ -242,7 +242,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(checkMatchButton)) {
                     checkMatchController.execute(matchID);
-                    System.out.println(matchID);
                 }
             }
         });

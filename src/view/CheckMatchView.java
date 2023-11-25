@@ -16,7 +16,7 @@ import java.beans.PropertyChangeListener;
 
 
 public class CheckMatchView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "LOL.GH";
+    public final String viewName = "Check Match";
 
 //    private final CheckMatchController checkMatchController;
     private final CheckMatchViewModel checkMatchViewModel;
