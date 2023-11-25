@@ -5,7 +5,7 @@ import interface_adapter.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class LoginViewModel extends ViewModel {
+public class LogInViewModel extends ViewModel {
 
     public final String TITLE_LABEL = "Log In View";
     public final String PLAYERID_LABEL = "Enter playerID";
@@ -15,7 +15,7 @@ public class LoginViewModel extends ViewModel {
 
     private LoginState state = new LoginState();
 
-    public LoginViewModel() {
+    public LogInViewModel() {
         super("log in");
     }
 

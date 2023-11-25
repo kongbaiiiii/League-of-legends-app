@@ -2,7 +2,7 @@ package view;
 
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
-import interface_adapter.login.LoginViewModel;
+import interface_adapter.login.LogInViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ import java.beans.PropertyChangeListener;
 
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "log in";
-    private final LoginViewModel loginViewModel;
+    private final LogInViewModel loginViewModel;
 
     final JTextField playerIDInputField = new JTextField(15);
     private final JLabel playerIDErrorField = new JLabel();
@@ -24,7 +24,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     final JButton cancel;
     private final LoginController loginController;
 
-    public LoginView(LoginViewModel loginViewModel, LoginController controller) {
+    public LoginView(LogInViewModel loginViewModel, LoginController controller) {
 
         this.loginController = controller;
         this.loginViewModel = loginViewModel;

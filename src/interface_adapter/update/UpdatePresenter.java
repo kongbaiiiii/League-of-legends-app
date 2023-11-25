@@ -26,7 +26,5 @@ public class UpdatePresenter implements UpdateOutputBoundary {
         JOptionPane.showMessageDialog(null, updateViewModel.getUPDATE_SUCCESSFUL_MESSAGE());
         viewManagerModel.setActiveView(updateViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
-
-        //TODO: update the loggedInView
     }
 }

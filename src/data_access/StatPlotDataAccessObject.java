@@ -35,7 +35,7 @@ public class StatPlotDataAccessObject {
         ArrayList<Object> data4 = new ArrayList<>();
         ArrayList<Object> data5 = new ArrayList<>();
         ArrayList<Match> matchList = matches.getAllMatches();
-        //      TODO: sort matchList by the date
+        Collections.reverse(matchList);
         for (Match match : matchList) {
             int playerIndex = match.getPlayerIndexByPlayerID(player.getPlayerID());
             Map<String, Object> matchData = match.getDataByPlayerIndex(playerIndex);

@@ -8,13 +8,13 @@ import use_case.login.LoginOutputdata;
 
 public class LoginPresenter implements LoginOutputBoundary {
 
-    private final LoginViewModel loginViewModel;
+    private final LogInViewModel loginViewModel;
     private final LoggedInViewModel loggedInViewModel;
     private ViewManagerModel viewManagerModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
                           LoggedInViewModel loggedInViewModel,
-                          LoginViewModel loginViewModel) {
+                          LogInViewModel loginViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loggedInViewModel = loggedInViewModel;
         this.loginViewModel = loginViewModel;

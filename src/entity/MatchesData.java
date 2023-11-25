@@ -3,21 +3,14 @@ package entity;
 import java.util.*;
 
 public class MatchesData implements Matches{
-    private Map<String,Match> matches = new HashMap<>();
+    private ArrayList<Match> matches = new ArrayList();
 
     public MatchesData(ArrayList<Match> matches) {
-        for (Match match:matches){
-            this.matches.put(match.getMatchID(),match);
-        }
+        this.matches = matches;
     }
 
     @Override
     public ArrayList<Match> getAllMatches() {
-        return new ArrayList<>(matches.values());
-    }
-
-    @Override
-    public Match getMatchByID(String matchid) {
-        return matches.get(matchid);
+        return this.matches;
     }
 }
