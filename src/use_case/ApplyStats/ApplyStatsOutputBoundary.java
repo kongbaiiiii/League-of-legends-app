@@ -1,9 +1,7 @@
 package use_case.ApplyStats;
 
-import entity.PlayerStats;
-
 public interface ApplyStatsOutputBoundary {
-    void prepareSuccessView(PlayerStats graphdata);
+    void prepareSuccessView(ApplyStatsOutputData applyStatsOutputData);
 
     void prepareFailView(String error);
 }
