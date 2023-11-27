@@ -8,13 +8,11 @@ import entity.NormalMatchesFactory;
 import entity.NormalPlayerFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.check_match.CheckMatchViewModel;
+import interface_adapter.key_setup.KeySetupViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LogInViewModel;
 import interface_adapter.update.UpdateViewModel;
-import view.CheckMatchView;
-import view.LoggedInView;
-import view.LoginView;
-import view.ViewManager;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,6 +36,7 @@ public class Main {
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         UpdateViewModel updateViewModel = new UpdateViewModel();
         CheckMatchViewModel checkMatchViewModel = new CheckMatchViewModel();
+        KeySetupViewModel keySetupViewModel = new KeySetupViewModel();
 
         PlayerDataAccessObject playerDataAccessObject;
         try {
@@ -61,6 +60,10 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        KeySetupView keySetupView = KeySetupUseCaseFactory.create(loginViewModel, keySetupViewModel,
+                viewManagerModel, playerDataAccessObject);
+        views.add(keySetupView);
+
         CheckMatchView checkMatchView = CheckMatchViewFactory.create(viewManagerModel, checkMatchViewModel, loggedInViewModel);
         views.add(checkMatchView, checkMatchView.viewName);
 
@@ -68,17 +71,33 @@ public class Main {
         views.add(loginView, loginView.viewName);
 
         LoggedInView loggedInView = LoggedInViewFactory.create(viewManagerModel, updateViewModel, loggedInViewModel, loginViewModel,
-                checkMatchViewModel, allPurposeDataAccessObject, matchDataAccessObject, playerDataAccessObject);
+                checkMatchViewModel, allPurposeDataAccessObject, matchDataAccessObject, playerDataAccessObject, keySetupViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
-        File playerFile = new File("player.csv");
-        if (playerFile.length() == 0) {
-            viewManagerModel.setActiveView(loginView.viewName);
+        File keyFile = new File("authoKey.csv");
+        if (keyFile.length() == 0) {
+            viewManagerModel.setActiveView(keySetupView.viewName);
             viewManagerModel.firePropertyChanged();
+            System.out.println("no key");
         } else {
-            viewManagerModel.setActiveView(loggedInView.viewName);
-            viewManagerModel.firePropertyChanged();
+            System.out.println("key found");
+            boolean validKey = playerDataAccessObject.validKey();
+            if (validKey){
+                File playerFile = new File("player.csv");
+                if (playerFile.length() == 0) {
+                    viewManagerModel.setActiveView(loginView.viewName);
+                    viewManagerModel.firePropertyChanged();
+                } else {
+                    viewManagerModel.setActiveView(loggedInView.viewName);
+                    viewManagerModel.firePropertyChanged();
+                }
+            }else {
+                viewManagerModel.setActiveView(keySetupView.viewName);
+                viewManagerModel.firePropertyChanged();
+                System.out.println("invalid key");
+            }
         }
+
 
         application.pack();
         SwingUtilities.invokeLater(new Runnable() {

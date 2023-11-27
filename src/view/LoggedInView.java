@@ -75,6 +75,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.updateViewModel = updateViewModel;
         this.checkMatchController = checkMatchController;
         this.logoutController = logoutController;
+        loggedInViewModel.addPropertyChangeListener(this);
 
         File matchIDFile = new File("matchdata.csv");
         try (BufferedReader reader = new BufferedReader(new FileReader(matchIDFile))) {

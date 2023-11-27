@@ -23,6 +23,7 @@ public class UpdatePresenter implements UpdateOutputBoundary {
 
     @Override
     public void prepareSuccessView(UpdateOutputData updateOutputData) {
+        loggedInViewModel.firePropertyChanged();
         JOptionPane.showMessageDialog(null, updateViewModel.getUPDATE_SUCCESSFUL_MESSAGE());
         viewManagerModel.setActiveView(updateViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

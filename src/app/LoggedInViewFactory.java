@@ -7,6 +7,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.check_match.CheckMatchController;
 import interface_adapter.check_match.CheckMatchPresenter;
 import interface_adapter.check_match.CheckMatchViewModel;
+import interface_adapter.key_setup.KeySetupViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LogInViewModel;
 import interface_adapter.logout.LogoutController;
@@ -34,11 +35,12 @@ public class LoggedInViewFactory {
                                       CheckMatchViewModel checkMatchViewModel,
                                       UpdateDataAccessInterface allPurposeDataAccessObject,
                                       CheckMatchDataAccessInterface checkMatchDataAccessObject,
-                                      PlayerDataAccessObject playerDataAccessObject){
+                                      PlayerDataAccessObject playerDataAccessObject,
+                                      KeySetupViewModel keySetupViewModel){
 
         UpdateController updateController = createUpdateUseCase(viewManagerModel, updateViewModel, loggedInViewModel, allPurposeDataAccessObject);
         CheckMatchController checkMatchController = createCheckMatchUseCase(checkMatchViewModel, viewManagerModel, checkMatchDataAccessObject);
-        LogoutController logoutController = createLogoutUseCase(viewManagerModel, loginViewModel, playerDataAccessObject);
+        LogoutController logoutController = createLogoutUseCase(viewManagerModel, loginViewModel, playerDataAccessObject, keySetupViewModel);
         return new LoggedInView(loggedInViewModel, updateController, updateViewModel, checkMatchController, logoutController);
     }
 
@@ -63,8 +65,8 @@ public class LoggedInViewFactory {
         return new CheckMatchController(checkMatchInteractor);
     }
 
-    private static LogoutController createLogoutUseCase(ViewManagerModel viewManagerModel, LogInViewModel loginViewModel, PlayerDataAccessObject playerDataAccessObject){
-        LogoutOutputBoundary logoutOutputBoundary = new LogoutPresenter(viewManagerModel, loginViewModel);
+    private static LogoutController createLogoutUseCase(ViewManagerModel viewManagerModel, LogInViewModel loginViewModel, PlayerDataAccessObject playerDataAccessObject, KeySetupViewModel keySetupViewModel){
+        LogoutOutputBoundary logoutOutputBoundary = new LogoutPresenter(viewManagerModel, loginViewModel, keySetupViewModel);
         LogoutInteractor logoutInteractor = new LogoutInteractor(playerDataAccessObject, logoutOutputBoundary);
         return new LogoutController(logoutInteractor);
     }
