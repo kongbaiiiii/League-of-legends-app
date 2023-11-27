@@ -1,9 +1,5 @@
 package use_case.ApplyStats;
 
-import entity.PlayerStats;
-
-import java.util.List;
-
 public interface ApplyStatsDataAccessInterface {
-    List<PlayerStats> getPlayerSelectedStats();
+    void plotStats(String stat1, String stat2, String stat3, String stat4, String stat5);
 }
