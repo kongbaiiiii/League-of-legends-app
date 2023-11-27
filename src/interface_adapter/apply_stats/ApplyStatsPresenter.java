@@ -1,34 +1,17 @@
 package interface_adapter.apply_stats;
 
-import entity.PlayerStats;
 import use_case.ApplyStats.ApplyStatsOutputBoundary;
 import use_case.ApplyStats.ApplyStatsOutputData;
-import interface_adapter.ViewModel;
 
 public class ApplyStatsPresenter implements ApplyStatsOutputBoundary {
-    private final ApplyStatsViewModel viewModel;
+    private final ApplyStatsViewModel applyStatsViewModel;
 
-    public ApplyStatsPresenter(ApplyStatsViewModel viewModel) {
-        this.viewModel = viewModel;
+    public ApplyStatsPresenter(ApplyStatsViewModel applyStatsViewModel) {
+        this.applyStatsViewModel = applyStatsViewModel;
     }
 
-//    @Override
-//    public void updateGraph(ApplyStatsOutputData outputData) {
-//        GraphViewModel graphData = convertToGraphViewModel(outputData);
-//        viewModel.setGraphData(graphData);
-//    }
-//
-//    @Override
-//    public void handleFailure(String errorMessage) {
-//        viewModel.setErrorMessage(errorMessage);
-//    }
-//
-//    private GraphViewModel convertToGraphViewModel(ApplyStatsOutputData outputData) {
-//        return new GraphViewModel();
-//    }
-
     @Override
-    public void prepareSuccessView(PlayerStats graphdata) {
+    public void prepareSuccessView(ApplyStatsOutputData applyStatsOutputData) {
 
     }
 
