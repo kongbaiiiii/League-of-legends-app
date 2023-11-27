@@ -64,8 +64,8 @@ public class Main {
                 viewManagerModel, playerDataAccessObject);
         views.add(keySetupView);
 
-        CheckMatchView checkMatchView = CheckMatchViewFactory.create(viewManagerModel, checkMatchViewModel, loggedInViewModel);
-        views.add(checkMatchView, checkMatchView.viewName);
+//        CheckMatchView checkMatchView = CheckMatchViewFactory.create(viewManagerModel, checkMatchViewModel, loggedInViewModel);
+//        views.add(checkMatchView, checkMatchView.viewName);
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, playerDataAccessObject);
         views.add(loginView, loginView.viewName);
@@ -78,9 +78,7 @@ public class Main {
         if (keyFile.length() == 0) {
             viewManagerModel.setActiveView(keySetupView.viewName);
             viewManagerModel.firePropertyChanged();
-            System.out.println("no key");
         } else {
-            System.out.println("key found");
             boolean validKey = playerDataAccessObject.validKey();
             if (validKey){
                 File playerFile = new File("player.csv");
@@ -94,7 +92,6 @@ public class Main {
             }else {
                 viewManagerModel.setActiveView(keySetupView.viewName);
                 viewManagerModel.firePropertyChanged();
-                System.out.println("invalid key");
             }
         }
 

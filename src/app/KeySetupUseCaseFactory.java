@@ -16,15 +16,16 @@ public class KeySetupUseCaseFactory {
 
     public static KeySetupView create(LogInViewModel logInViewModel, KeySetupViewModel keySetupViewModel, ViewManagerModel viewManagerModel,
                                       KeySetupDataAccessInterface playerDataAccessObject){
-        KeySetupController keySetupController = createKeySetupUseCase(keySetupViewModel, viewManagerModel, playerDataAccessObject);
+        KeySetupController keySetupController = createKeySetupUseCase(keySetupViewModel, viewManagerModel, playerDataAccessObject,
+                logInViewModel);
         KeySetupView keySetupView = new KeySetupView(logInViewModel, keySetupViewModel, keySetupController);
         return keySetupView;
     }
 
     private static KeySetupController createKeySetupUseCase(KeySetupViewModel keySetupViewModel, ViewManagerModel viewManagerModel,
-                                                     KeySetupDataAccessInterface playerDataAccessObject){
+                                                     KeySetupDataAccessInterface playerDataAccessObject, LogInViewModel logInViewModel){
 
-        KeySetupOutputBoundary keySetupOutputBoundary = new KeySetupPresenter(keySetupViewModel, viewManagerModel);
+        KeySetupOutputBoundary keySetupOutputBoundary = new KeySetupPresenter(keySetupViewModel, viewManagerModel, logInViewModel);
 
         KeySetupInteractor keySetupInteractor = new KeySetupInteractor(playerDataAccessObject, keySetupOutputBoundary);
         KeySetupController keySetupController = new KeySetupController(keySetupInteractor);

@@ -16,10 +16,12 @@ public class KeySetupInteractor implements KeySetupInputBoundary{
     public void execute(KeySetupInputData keySetupInputData) {
         String key = keySetupInputData.getKey();
         userDataAccessObject.setKey(key);
-        if (userDataAccessObject.validKey()) {
+        if (userDataAccessObject.validKey(key)) {
+            System.out.println("valid key");
             userDataAccessObject.saveKey();
             userPresenter.prepareSuccessView();
         }else{
+            System.out.println("invalid key");
             userPresenter.prepareFailView();
         }
     }

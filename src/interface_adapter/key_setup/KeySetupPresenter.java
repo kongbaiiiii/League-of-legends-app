@@ -10,9 +10,11 @@ public class KeySetupPresenter implements KeySetupOutputBoundary {
     private LogInViewModel logInViewModel;
     private ViewManagerModel viewManagerModel;
 
-    public KeySetupPresenter(KeySetupViewModel keySetupViewModel, ViewManagerModel viewManagerModel){
+    public KeySetupPresenter(KeySetupViewModel keySetupViewModel, ViewManagerModel viewManagerModel,
+                             LogInViewModel logInViewModel){
         this.keySetupViewModel = keySetupViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.logInViewModel = logInViewModel;
     }
 
     @Override
