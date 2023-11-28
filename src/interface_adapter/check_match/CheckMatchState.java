@@ -13,4 +13,8 @@ public class CheckMatchState {
     public CheckMatchState(){}
 
     public Match getMatch(){return  this.match;}
+
+    public void setMatch(Match match){
+        this.match = match;
+    }
 }

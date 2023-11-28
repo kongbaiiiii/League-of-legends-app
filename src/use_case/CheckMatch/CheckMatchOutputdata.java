@@ -8,7 +8,7 @@ public class CheckMatchOutputdata {
         this.match = match;
     }
 
-    Match getMatch() {
+    public Match getMatch() {
         return match;
     }
 }

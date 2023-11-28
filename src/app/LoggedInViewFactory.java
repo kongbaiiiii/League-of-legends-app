@@ -39,7 +39,7 @@ public class LoggedInViewFactory {
                                       KeySetupViewModel keySetupViewModel){
 
         UpdateController updateController = createUpdateUseCase(viewManagerModel, updateViewModel, loggedInViewModel, allPurposeDataAccessObject);
-        CheckMatchController checkMatchController = createCheckMatchUseCase(checkMatchViewModel, viewManagerModel, checkMatchDataAccessObject);
+        CheckMatchController checkMatchController = createCheckMatchUseCase(checkMatchViewModel, viewManagerModel, checkMatchDataAccessObject, loggedInViewModel);
         LogoutController logoutController = createLogoutUseCase(viewManagerModel, loginViewModel, playerDataAccessObject, keySetupViewModel);
         return new LoggedInView(loggedInViewModel, updateController, updateViewModel, checkMatchController, logoutController);
     }
@@ -55,9 +55,9 @@ public class LoggedInViewFactory {
         return new UpdateController(updateInteractor);
     }
 
-    private static CheckMatchController createCheckMatchUseCase(CheckMatchViewModel checkMatchViewModel, ViewManagerModel viewManagerModel, CheckMatchDataAccessInterface checkMatchDataAccessObject){
+    private static CheckMatchController createCheckMatchUseCase(CheckMatchViewModel checkMatchViewModel, ViewManagerModel viewManagerModel, CheckMatchDataAccessInterface checkMatchDataAccessObject, LoggedInViewModel loggedInViewModel){
 
-        CheckMatchOutputBoundary checkMatchOutputBoundary = new CheckMatchPresenter(checkMatchViewModel, viewManagerModel);
+        CheckMatchOutputBoundary checkMatchOutputBoundary = new CheckMatchPresenter(checkMatchViewModel, loggedInViewModel, viewManagerModel);
 
         MatchFactory matchFactory = new NormalMatchFactory();
 

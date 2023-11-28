@@ -22,7 +22,6 @@ public class CheckMatchInteractor implements CheckMatchInputBoundary {
         String matchId = checkMatchInputData.getMatchId();
         Match match = matchDataAccessObject.getMatch(matchId);
         CheckMatchOutputdata checkMatchOutputdata = new CheckMatchOutputdata(match);
-        matchPresenter.prepareSuccessView();
-
+        matchPresenter.prepareSuccessView(checkMatchOutputdata);
     }
 }
