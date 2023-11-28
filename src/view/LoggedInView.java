@@ -165,7 +165,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     private JPanel createSubPanel(CheckMatchController checkMatchController, LoggedInState state, int i) {
         JPanel subPanel = new JPanel();
 
-        ImageIcon poroIcon = new ImageIcon("images/poro.png");
+        ImageIcon poroIcon = new ImageIcon(String.format("images/championicons/%s.png", state.getChampionIdList().get(i)));
         Image scaledPoro = poroIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         ImageIcon scaledPoroIcon = new ImageIcon(scaledPoro);
         JLabel poro = new JLabel(scaledPoroIcon);
