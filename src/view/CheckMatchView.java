@@ -29,7 +29,9 @@ public class CheckMatchView extends JPanel implements ActionListener, PropertyCh
 
     private final JButton returnMain;
 
-    private ImageIcon championIcon = new ImageIcon("images/teemo.png");
+    private Match match;
+
+    private static ImageIcon championIcon = new ImageIcon("images/teemo.png");
 
     public CheckMatchView(CheckMatchViewModel checkMatchViewModel, ReturnMainController returnMainController,
                           LoggedInViewModel loggedInViewModel){
@@ -38,7 +40,7 @@ public class CheckMatchView extends JPanel implements ActionListener, PropertyCh
         this.loggedInViewModel = loggedInViewModel;
 
         CheckMatchState checkMatchState = checkMatchViewModel.getState();
-        Match match = checkMatchState.getMatch();
+        this.match = checkMatchState.getMatch();
 
         returnMain = new JButton(checkMatchViewModel.RETURN_MAIN_BUTTON_LABEL);
         returnMain.setPreferredSize(new Dimension(150, 50));
@@ -62,7 +64,7 @@ public class CheckMatchView extends JPanel implements ActionListener, PropertyCh
 
         JPanel lowerPanel = new JPanel(new GridLayout(5, 2));
         lowerPanel.setPreferredSize(new Dimension(900, 500));
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 0; i < 10; i++) {
             JPanel subPanel = createSubPanel(i, match);
             lowerPanel.add(subPanel);
         }
@@ -86,30 +88,32 @@ public class CheckMatchView extends JPanel implements ActionListener, PropertyCh
 
     private static JPanel createSubPanel(int i, Match match) {
         Map<String, Object> playerData = match.getDataByPlayerIndex(i);
-        JPanel subPanel = new JPanel();
+        JPanel subPanel = new JPanel(new GridLayout(1, 2));
         subPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Left Panel
-        JPanel leftPanel = new JPanel(new BorderLayout());
+        JPanel leftPanel = new JPanel(new GridLayout(2, 1));
         leftPanel.setPreferredSize(new Dimension(150, 100));
         subPanel.add(leftPanel, BorderLayout.WEST);
 
         // Upper Panel inside Left Panel
         JPanel upperPanel = new JPanel();
         upperPanel.setPreferredSize(new Dimension(150, 30));
-        leftPanel.add(upperPanel, BorderLayout.NORTH);
         upperPanel.add(new JLabel((String) playerData.get("championName")));
+        leftPanel.add(upperPanel, BorderLayout.NORTH);
 
         // Bottom Panel inside Left Panel
         JPanel bottomPanel = new JPanel();
         bottomPanel.setPreferredSize(new Dimension(150, 70));
+        Image scaledChamp = championIcon.getImage().getScaledInstance(150, 70, Image.SCALE_SMOOTH);
+        ImageIcon scaledChampIcon = new ImageIcon(scaledChamp);
+        bottomPanel.add(new JLabel(scaledChampIcon)); // Replace with the actual image path
         leftPanel.add(bottomPanel, BorderLayout.SOUTH);
-        bottomPanel.add(new JLabel(new ImageIcon("images/teemo.png"))); // Replace with the actual image path
 
         // Right Panel
         JPanel rightPanel = new JPanel(new GridLayout(3, 1));
         rightPanel.setPreferredSize(new Dimension(300, 100));
-        subPanel.add(rightPanel, BorderLayout.CENTER);
+        subPanel.add(rightPanel, BorderLayout.EAST);
 
         // Text Panel 1 inside Right Panel
         JPanel textPanel1 = new JPanel();
@@ -118,7 +122,7 @@ public class CheckMatchView extends JPanel implements ActionListener, PropertyCh
 
         // Text Panel 2 inside Right Panel
         JPanel textPanel2 = new JPanel();
-        textPanel2.add(new JLabel("K: "+playerData.get("kills")+"D: "+playerData.get("deaths")+"A: "+playerData.get("assists")));
+        textPanel2.add(new JLabel("K: "+playerData.get("kills")+" D: "+playerData.get("deaths")+" A: "+playerData.get("assists")));
         rightPanel.add(textPanel2);
 
         // Text Panel 3 inside Right Panel

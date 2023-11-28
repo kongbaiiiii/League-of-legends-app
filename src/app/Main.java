@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main {
+    public static JPanel views;
+
     public static void main(String[] args) {
 
         PlayerDataAccessObject playerDataAccessObject;
@@ -53,7 +55,7 @@ public class Main {
 
         CardLayout cardLayout = new CardLayout();
 
-        JPanel views = new JPanel(cardLayout);
+        views = new JPanel(cardLayout);
         application.add(views);
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
