@@ -137,7 +137,27 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, L
             Response response = client.newCall(request).execute();
             assert response.body() != null;
             JSONObject responseBody = new JSONObject(response.body().string());
-            responseBody.getInt("status_code");
+            responseBody = responseBody.getJSONObject("status");
+            System.out.println(responseBody.getInt("status_code"));
+            return false;
+        } catch (IOException | JSONException e) {
+            return true;
+        }
+    }
+
+    @Override
+    public boolean validKey(String key) {
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        Request request = new Request.Builder()
+                .url("https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/wrnmbb/NA1")
+                .addHeader("X-Riot-Token", key)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            assert response.body() != null;
+            JSONObject responseBody = new JSONObject(response.body().string());
+            responseBody = responseBody.getJSONObject("status");
+            System.out.println(responseBody.getInt("status_code"));
             return false;
         } catch (IOException | JSONException e) {
             return true;

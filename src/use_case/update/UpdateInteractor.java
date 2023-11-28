@@ -22,7 +22,7 @@ public class UpdateInteractor implements UpdateInputBoundary {
         updateDataAccessObject.plotStats(updateInputData.getStat1(), updateInputData.getStat2(), updateInputData.getStat3(), updateInputData.getStat4(), updateInputData.getStat5());
         Matches matches = updateDataAccessObject.getMatches();
 
-        UpdateOutputData updateOutputData = new UpdateOutputData(matches);
+        UpdateOutputData updateOutputData = new UpdateOutputData(matches, playerID);
         playerPresenter.prepareSuccessView(updateOutputData);
     }
 }

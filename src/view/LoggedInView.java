@@ -63,10 +63,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
 //TODO There will be 20 checkMatch buttons in total, and each button should correspond to a specific matchID.
 
-//    private final JButton logout;
-//    private final JButton checkPlayerStatsDetail;
-
-
     public LoggedInView(LoggedInViewModel loggedInViewModel, UpdateController updateController,
                         UpdateViewModel updateViewModel, CheckMatchController checkMatchController,
                         LogoutController logoutController) {
@@ -77,31 +73,9 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.logoutController = logoutController;
         loggedInViewModel.addPropertyChangeListener(this);
 
-        File matchIDFile = new File("matchdata.csv");
-        try (BufferedReader reader = new BufferedReader(new FileReader(matchIDFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                matchIDList.add(line);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            stat1Image = ImageIO.read(new File("images/stat1.png"));
-            stat2Image = ImageIO.read(new File("images/stat2.png"));
-            stat3Image = ImageIO.read(new File("images/stat3.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        stat1Panel = createPanelByImage(stat1Image);
-        stat2Panel = createPanelByImage(stat2Image);
-        stat3Panel = createPanelByImage(stat3Image);
-
-        update = new JButton(loggedInViewModel.UPDATA_STAT_BUTTON_LABEL);
-        logout = new JButton(loggedInViewModel.LOGOUT_BUTTON_LABEL);
-        checkPlayerPlot = new JButton(loggedInViewModel.CHECK_PLAYER_PLOT_BUTTON_LABEL);
+        update = new JButton(LoggedInViewModel.UPDATA_STAT_BUTTON_LABEL);
+        logout = new JButton(LoggedInViewModel.LOGOUT_BUTTON_LABEL);
+        checkPlayerPlot = new JButton(LoggedInViewModel.CHECK_PLAYER_PLOT_BUTTON_LABEL);
         checkPlayerPlot.setPreferredSize(new Dimension(150, 50));
         update.setPreferredSize(new Dimension(150, 50));
         logout.setPreferredSize(new Dimension(150, 50));
@@ -109,66 +83,21 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         this.setPreferredSize(new Dimension(900, 650));
         this.setLayout(new BorderLayout());
 
-
-
         JPanel rightPanel = createPanel(600, 650);
         JPanel leftPanel = new JPanel(new GridLayout(2, 1));
+
         JPanel leftTopSubPanel = createPanel(300, 300);
         JPanel leftBottomSubPanel = createPanel(300, 350);
         JPanel rightTopSubPanel = createPanel(600, 570);
         JPanel rightBottomSubPanel = createPanel(600, 80);
-
-        //leftTopSubPanel
-        Image scaledPoro = poroIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        ImageIcon scaledPoroIcon = new ImageIcon(scaledPoro);
-        JLabel poro = new JLabel(scaledPoroIcon);
-        poro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        poro.setSize(200, 200);
-        leftTopSubPanel.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 0;
-        c.gridy = 1;
-        leftTopSubPanel.add(poro, c);
-        c.gridx = 0;
-        c.gridy = 2;
-        BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader("player.csv"));
-            playerID = reader.readLine();
+            paintLeftTopSubPanel(leftTopSubPanel);
+            paintLeftBottomSubPanel(leftBottomSubPanel);
+            paintRightTopSubPanel(rightTopSubPanel);
+            paintRightBottomSubPanel(rightBottomSubPanel);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        JLabel playerIDLabel = new JLabel(playerID);
-        playerIDLabel.setFont(new Font("Lucida Grande", PLAIN, 15));
-        leftTopSubPanel.add(playerIDLabel, c);
-        JPanel updateAndLogout = new JPanel(new GridLayout(1, 2));
-        updateAndLogout.setPreferredSize(new Dimension(300, 50));
-        updateAndLogout.add(update);
-        updateAndLogout.add(logout);
-        c.gridx = 0;
-        c.gridy = 3;
-        leftTopSubPanel.add(updateAndLogout, c);
-
-        //leftBottomSubPanel
-        JScrollPane matchesScrollPane = new JScrollPane();
-        matchesScrollPane.setPreferredSize(new Dimension(280, 310));
-        JPanel matchPanel = new JPanel();
-        matchPanel.setLayout(new BoxLayout(matchPanel, BoxLayout.Y_AXIS));
-        for (String matchID: matchIDList) {
-            JPanel subPanel = createSubPanel(checkMatchController,"Text in Panel",
-                    loggedInViewModel.CHECK_MATCH_DETAIL_BUTTON_LABEL, matchID);
-            matchPanel.add(subPanel);
-        }
-
-        matchesScrollPane.setViewportView(matchPanel);
-        matchesScrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        leftBottomSubPanel.add(matchesScrollPane);
-
-        rightTopSubPanel.setLayout(new GridLayout(3, 1));
-        rightTopSubPanel.add(stat1Panel);
-        rightTopSubPanel.add(stat2Panel);
-        rightTopSubPanel.add(stat3Panel);
-        rightBottomSubPanel.add(checkPlayerPlot);
 
         leftPanel.add(leftTopSubPanel);
         leftPanel.add(leftBottomSubPanel);
@@ -205,19 +134,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                 if (e.getSource().equals(update)) {
                     updateController.execute(playerID, "kills", "deaths", "assists", "cs", "goldEarned");
                     try {
-                        stat1Image = ImageIO.read(new File("images/stat1.png"));
-                        stat2Image = ImageIO.read(new File("images/stat2.png"));
-                        stat3Image = ImageIO.read(new File("images/stat3.png"));
-                        stat1Panel = createPanelByImage(stat1Image);
-                        stat2Panel = createPanelByImage(stat2Image);
-                        stat3Panel = createPanelByImage(stat3Image);
-                        rightTopSubPanel.removeAll();
-                        rightTopSubPanel.add(stat1Panel);
-                        rightTopSubPanel.add(stat2Panel);
-                        rightTopSubPanel.add(stat3Panel);
-                        rightTopSubPanel.revalidate();
-                        rightTopSubPanel.repaint();
-                        repaint();
+                        repaintView(rightTopSubPanel, leftTopSubPanel, leftBottomSubPanel);
                     } catch (IOException d) {
                         d.printStackTrace();
                     }
@@ -245,16 +162,20 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         return panel;
     }
 
-    private static JPanel createSubPanel(CheckMatchController checkMatchController, String text, String buttonLabel, String matchID) {
+    private static JPanel createSubPanel(CheckMatchController checkMatchController, LoggedInState state, int i) {
         JPanel subPanel = new JPanel();
+
+        String text = String.format("%d/%d/%d", state.getKillsList().get(i),
+                state.getDeathsList().get(i), state.getAssistsList().get(i));
         JLabel label = new JLabel(text);
 
-        JButton checkMatchButton = new JButton(buttonLabel);
+        JButton checkMatchButton = new JButton(LoggedInViewModel.CHECK_MATCH_DETAIL_BUTTON_LABEL);
         checkMatchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(checkMatchButton)) {
-                    checkMatchController.execute(matchID);
+                    System.out.println(state.getMatchIDList().get(i));
+                    checkMatchController.execute(state.getMatchIDList().get(i));
                 }
             }
         });
@@ -277,6 +198,90 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                 }
             }
         };
+    }
+
+    private void repaintView(JPanel rightTopSubPanel, JPanel leftTopSubPanel, JPanel leftBottomSubPanel) throws IOException {
+        paintRightTopSubPanel(rightTopSubPanel);
+        paintLeftTopSubPanel(leftTopSubPanel);
+        paintLeftBottomSubPanel(leftBottomSubPanel);
+    }
+
+    private void paintRightTopSubPanel(JPanel rightTopSubPanel) throws IOException {
+        rightTopSubPanel.setLayout(new GridLayout(3, 1));
+        stat1Image = ImageIO.read(new File("images/stat1.png"));
+        stat2Image = ImageIO.read(new File("images/stat2.png"));
+        stat3Image = ImageIO.read(new File("images/stat3.png"));
+        stat1Panel = createPanelByImage(stat1Image);
+        stat2Panel = createPanelByImage(stat2Image);
+        stat3Panel = createPanelByImage(stat3Image);
+        rightTopSubPanel.removeAll();
+        rightTopSubPanel.add(stat1Panel);
+        rightTopSubPanel.add(stat2Panel);
+        rightTopSubPanel.add(stat3Panel);
+        rightTopSubPanel.revalidate();
+        rightTopSubPanel.repaint();
+    }
+
+    private void paintLeftTopSubPanel(JPanel leftTopSubPanel) throws IOException {
+        leftTopSubPanel.removeAll();
+        GridBagConstraints c = new GridBagConstraints();
+        Image scaledPoro = poroIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        ImageIcon scaledPoroIcon = new ImageIcon(scaledPoro);
+        JLabel poro = new JLabel(scaledPoroIcon);
+        poro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        poro.setSize(200, 200);
+        leftTopSubPanel.setLayout(new GridBagLayout());
+        c.gridx = 0;
+        c.gridy = 1;
+        leftTopSubPanel.add(poro, c);
+        BufferedReader reader = new BufferedReader(new FileReader("player.csv"));
+        playerID = reader.readLine();
+        JLabel playerIDLabel = new JLabel(playerID);
+        playerIDLabel.setFont(new Font("Lucida Grande", PLAIN, 15));
+        c.gridx = 0;
+        c.gridy = 2;
+        leftTopSubPanel.add(playerIDLabel, c);
+        JPanel updateAndLogout = new JPanel(new GridLayout(1, 2));
+        updateAndLogout.setPreferredSize(new Dimension(300, 50));
+        updateAndLogout.add(update);
+        updateAndLogout.add(logout);
+        c.gridx = 0;
+        c.gridy = 3;
+        leftTopSubPanel.add(updateAndLogout, c);
+        leftTopSubPanel.revalidate();
+        leftTopSubPanel.repaint();
+    }
+
+    private void paintLeftBottomSubPanel(JPanel leftBottomSubPanel) {
+        File matchIDFile = new File("matchdata.csv");
+        try (BufferedReader reader = new BufferedReader(new FileReader(matchIDFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                matchIDList.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        leftBottomSubPanel.removeAll();
+        JScrollPane matchesScrollPane = new JScrollPane();
+        matchesScrollPane.setPreferredSize(new Dimension(280, 310));
+        JPanel matchPanel = new JPanel();
+        matchPanel.setLayout(new BoxLayout(matchPanel, BoxLayout.Y_AXIS));
+        for (int i = 0; i < loggedInViewModel.getState().getWinList().size(); i++) {
+            JPanel subPanel = createSubPanel(checkMatchController, loggedInViewModel.getState(), i);
+            matchPanel.add(subPanel);
+
+            matchesScrollPane.setViewportView(matchPanel);
+            matchesScrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            leftBottomSubPanel.add(matchesScrollPane);
+
+            leftBottomSubPanel.revalidate();
+            leftBottomSubPanel.repaint();
+        }
+    }
+
+    private void paintRightBottomSubPanel(JPanel rightBottomSubPanel) {
+        rightBottomSubPanel.add(checkPlayerPlot);
     }
 
     @Override

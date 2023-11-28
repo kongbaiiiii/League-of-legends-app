@@ -22,6 +22,8 @@ public class LoggedInState {
 
     ArrayList<Boolean> winList = new ArrayList<Boolean>();
 
+    ArrayList<String> matchIDList = new ArrayList<String>();
+
     public LoggedInState(LoggedInState copy) {
         playerID = copy.playerID;
     }
@@ -130,6 +132,14 @@ public class LoggedInState {
 
     public ArrayList<Long> getItem6List() {
         return item6List;
+    }
+
+    public void setMatchIDList(ArrayList<String> matchIDList) {
+        this.matchIDList = matchIDList;
+    }
+
+    public ArrayList<String> getMatchIDList() {
+        return matchIDList;
     }
 }
 
