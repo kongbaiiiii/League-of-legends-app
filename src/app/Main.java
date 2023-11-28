@@ -21,6 +21,33 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
+
+        PlayerDataAccessObject playerDataAccessObject;
+        try {
+            playerDataAccessObject = new PlayerDataAccessObject("player.csv", new NormalPlayerFactory());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        boolean validKey = playerDataAccessObject.validKey();
+        if (!validKey) {
+            System.out.println("start key setup");
+            SwingUtilities.invokeLater(() -> {
+                Keysetup();
+            });
+
+            // Wait for the panel to be closed
+            while (!KeySetupView.PanelClose) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("panel closed");
+        }
+
+
         JFrame application = new JFrame("LOL app");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -38,13 +65,6 @@ public class Main {
         CheckMatchViewModel checkMatchViewModel = new CheckMatchViewModel();
         KeySetupViewModel keySetupViewModel = new KeySetupViewModel();
 
-        PlayerDataAccessObject playerDataAccessObject;
-        try {
-            playerDataAccessObject = new PlayerDataAccessObject("player.csv", new NormalPlayerFactory());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         AllPurposeDataAccessObject allPurposeDataAccessObject;
         try {
             allPurposeDataAccessObject = new AllPurposeDataAccessObject("matchdata.csv", new NormalMatchFactory(),
@@ -60,13 +80,6 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        KeySetupView keySetupView = KeySetupUseCaseFactory.create(loginViewModel, keySetupViewModel,
-                viewManagerModel, playerDataAccessObject);
-        views.add(keySetupView);
-
-//        CheckMatchView checkMatchView = CheckMatchViewFactory.create(viewManagerModel, checkMatchViewModel, loggedInViewModel);
-//        views.add(checkMatchView, checkMatchView.viewName);
-
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, playerDataAccessObject);
         views.add(loginView, loginView.viewName);
 
@@ -74,32 +87,49 @@ public class Main {
                 checkMatchViewModel, allPurposeDataAccessObject, matchDataAccessObject, playerDataAccessObject, keySetupViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
-        File keyFile = new File("authoKey.csv");
-        if (keyFile.length() == 0) {
-            viewManagerModel.setActiveView(keySetupView.viewName);
+
+        File playerFile = new File("player.csv");
+        System.out.println("start main");
+        if (playerFile.length() == 0) {
+            viewManagerModel.setActiveView(loginView.viewName);
             viewManagerModel.firePropertyChanged();
         } else {
-            boolean validKey = playerDataAccessObject.validKey();
-            if (validKey){
-                File playerFile = new File("player.csv");
-                if (playerFile.length() == 0) {
-                    viewManagerModel.setActiveView(loginView.viewName);
-                    viewManagerModel.firePropertyChanged();
-                } else {
-                    viewManagerModel.setActiveView(loggedInView.viewName);
-                    viewManagerModel.firePropertyChanged();
-                }
-            }else {
-                viewManagerModel.setActiveView(keySetupView.viewName);
-                viewManagerModel.firePropertyChanged();
-            }
+            viewManagerModel.setActiveView(loggedInView.viewName);
+            viewManagerModel.firePropertyChanged();
         }
 
 
         application.pack();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
-            public void run(){application.setVisible(true);}
+            public void run() {
+                application.setVisible(true);
+            }
         });
+    }
+
+
+    private static void Keysetup() {
+        JFrame frame = new JFrame("Key setup");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        LogInViewModel loginViewModel = new LogInViewModel();
+        KeySetupViewModel keySetupViewModel = new KeySetupViewModel();
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+
+        PlayerDataAccessObject playerDataAccessObject;
+        try {
+            playerDataAccessObject = new PlayerDataAccessObject("player.csv", new NormalPlayerFactory());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        KeySetupView keySetupView = KeySetupUseCaseFactory.create(loginViewModel, keySetupViewModel,
+                viewManagerModel, playerDataAccessObject);
+
+        frame.getContentPane().add(keySetupView);
+        frame.setSize(900, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }

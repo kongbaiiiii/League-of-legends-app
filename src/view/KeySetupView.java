@@ -17,6 +17,8 @@ import java.beans.PropertyChangeListener;
 
 public class KeySetupView extends JPanel implements ActionListener, PropertyChangeListener {
 
+    public static boolean PanelClose = false;
+
     public final String viewName = "Key Setup";
 
     private final LogInViewModel logInViewModel;
@@ -51,6 +53,18 @@ public class KeySetupView extends JPanel implements ActionListener, PropertyChan
                     KeySetupState currentState = keySetupViewModel.getState();
                     currentState.setKey(keyInputField.getText());
                     keySetupController.execute(currentState.getKey());
+                    PanelClose = true;
+                    java.awt.Container container = SwingUtilities.getWindowAncestor(KeySetupView.this);
+                    if (container instanceof JFrame) {
+                        // If it is, dispose of the JFrame, effectively closing the application
+                        ((JFrame) container).dispose();
+                    } else {
+                        // If it's not a JFrame, remove the panel from its parent
+                        container.remove(KeySetupView.this);
+                        // Repaint the parent container to reflect the changes
+                        container.revalidate();
+                        container.repaint();
+                    }
                 }
             }
         });

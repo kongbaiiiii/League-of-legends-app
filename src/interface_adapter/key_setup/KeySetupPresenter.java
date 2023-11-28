@@ -19,8 +19,6 @@ public class KeySetupPresenter implements KeySetupOutputBoundary {
 
     @Override
     public void prepareSuccessView() {
-        viewManagerModel.setActiveView(logInViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
     }
 
     @Override
