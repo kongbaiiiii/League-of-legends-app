@@ -155,19 +155,25 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     }
 
-    private static JPanel createPanel(int width, int height) {
+    private JPanel createPanel(int width, int height) {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(width, height));
 
         return panel;
     }
 
-    private static JPanel createSubPanel(CheckMatchController checkMatchController, LoggedInState state, int i) {
+    private JPanel createSubPanel(CheckMatchController checkMatchController, LoggedInState state, int i) {
         JPanel subPanel = new JPanel();
+
+        ImageIcon poroIcon = new ImageIcon("images/poro.png");
+        Image scaledPoro = poroIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        ImageIcon scaledPoroIcon = new ImageIcon(scaledPoro);
+        JLabel poro = new JLabel(scaledPoroIcon);
+        poro.setSize(50, 50);
 
         String text = String.format("%d/%d/%d", state.getKillsList().get(i),
                 state.getDeathsList().get(i), state.getAssistsList().get(i));
-        JLabel label = new JLabel(text);
+        JLabel kda = new JLabel(text);
 
         JButton checkMatchButton = new JButton(LoggedInViewModel.CHECK_MATCH_DETAIL_BUTTON_LABEL);
         checkMatchButton.addActionListener(new ActionListener() {
@@ -179,8 +185,16 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                 }
             }
         });
+        if (state.getWinList().get(i)){
+            subPanel.setBackground(new Color(143, 206, 247));
+        }else{
+            subPanel.setBackground(new Color(245, 144, 144));
+        }
         checkMatchButton.setPreferredSize(new Dimension(60, 50));
-        subPanel.add(label);
+
+        subPanel.setLayout(new GridLayout());
+        subPanel.add(poro);
+        subPanel.add(kda);
         subPanel.add(checkMatchButton);
         subPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Optional: Add a border for better visibility
         subPanel.setPreferredSize(new Dimension(260, 60));
