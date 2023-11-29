@@ -81,6 +81,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         logout.setPreferredSize(new Dimension(150, 50));
 
         this.setPreferredSize(new Dimension(900, 650));
+        this.setMinimumSize(new Dimension(900, 650));
+        this.setMaximumSize(new Dimension(900, 650));
         this.setLayout(new BorderLayout());
 
         JPanel rightPanel = createPanel(600, 650);
@@ -110,9 +112,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         // Add panels to the frame
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.CENTER);
-
-        this.setMinimumSize(new Dimension(900, 600));
-        this.setMaximumSize(new Dimension(900, 600));
 
         update.addActionListener(new ActionListener() {
             @Override
@@ -281,7 +280,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         matchesScrollPane.setPreferredSize(new Dimension(280, 310));
         JPanel matchPanel = new JPanel();
         matchPanel.setLayout(new BoxLayout(matchPanel, BoxLayout.Y_AXIS));
-        for (int i = 0; i < loggedInViewModel.getState().getWinList().size(); i++) {
+        for (int i = loggedInViewModel.getState().getWinList().size() - 1; i > -1 ; i--) {
             JPanel subPanel = createSubPanel(checkMatchController, loggedInViewModel.getState(), i);
             matchPanel.add(subPanel);
 

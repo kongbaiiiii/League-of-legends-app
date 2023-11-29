@@ -34,8 +34,8 @@ public class UpdateOutputData {
         this.matches = matches;
         this.playerID = playerID;
         ArrayList<Match> matchArrayList = matches.getAllMatches();
-        int playerIndex = matchArrayList.get(0).getPlayerIndexByPlayerID(playerID);
         for (Match match: matchArrayList) {
+            int playerIndex = match.getPlayerIndexByPlayerID(playerID);
             Map<String, Object> dataMap = match.getDataByPlayerIndex(playerIndex);
             assistsList.add((Long)dataMap.get("assists"));
             deathsList.add((Long) dataMap.get("deaths"));
@@ -51,7 +51,6 @@ public class UpdateOutputData {
             winList.add((Boolean) dataMap.get("win"));
             matchIDList.add(match.getMatchID());
         }
-        Collections.reverse(matchIDList);
     }
 
     public Matches getMatches(){

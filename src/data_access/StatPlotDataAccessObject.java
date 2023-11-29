@@ -56,7 +56,7 @@ public class StatPlotDataAccessObject {
     private void plot(ArrayList<String> gameStartTimeList, ArrayList<Object> dataList, String image_title, String outputName) {
         int WIDTH = 590;
         int HEIGHT = 180;
-        String backgroundColor = "rgb(20, 20, 20)";
+        String backgroundColor = "rgb(252, 248, 242)";
 
         Map<String, Object> data = setUpDataMap(dataList, gameStartTimeList);
 
@@ -99,7 +99,7 @@ public class StatPlotDataAccessObject {
     }
 
     private Map<String, Object> setUpDataMap(ArrayList<Object> dataList, ArrayList<String> gameStartTimeList) {
-        String LINECOLOR = "rgb(75, 192, 192)";
+        String LINECOLOR = "rgb(100, 100, 100)";
         int LINEWIDTH = 2;
         Map<String, Object> data = new HashMap<>();
         ArrayList<Object> datasets = new ArrayList<>();
@@ -124,7 +124,7 @@ public class StatPlotDataAccessObject {
         Map<String, Object> ticksX = new HashMap<>();
         Map<String, Object> fontStyleX = new HashMap<>();
         fontStyleX.put("fontSize", FONTSIZEX);
-        fontStyleX.put("fontColor", "rgb(231, 237, 238)");
+        fontStyleX.put("fontColor", "rgb(50, 50, 50)");
         ticksX.put("ticks", fontStyleX);
         xAxesStyle.add(ticksX);
         scales.put("xAxes", xAxesStyle);
@@ -132,7 +132,7 @@ public class StatPlotDataAccessObject {
         Map<String, Object> ticksY = new HashMap<>();
         Map<String, Object> fontStyleY = new HashMap<>();
         fontStyleY.put("fontSize", FONTSIZEY);
-        fontStyleY.put("fontColor", "rgb(231, 237, 238)");
+        fontStyleY.put("fontColor", "rgb(50, 50, 50)");
         ticksY.put("ticks", fontStyleY);
         yAxesStyle.add(ticksY);
         scales.put("yAxes", yAxesStyle);
@@ -141,7 +141,7 @@ public class StatPlotDataAccessObject {
 
     private Map<String, Object> setUpTitleMap(String outputName) {
         int FONTSIZE = 14;
-        String FONTCOLOR = "rgb(75, 192, 192)";
+        String FONTCOLOR = "rgb(50, 50, 50)";
         Map<String, Object> title = new HashMap<>();
         title.put("display", true);
         title.put("text", outputName.toUpperCase(Locale.ROOT));
