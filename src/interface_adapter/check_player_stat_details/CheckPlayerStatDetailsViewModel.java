@@ -9,6 +9,7 @@ import java.util.List;
 public class CheckPlayerStatDetailsViewModel {
 
     private CheckPlayerStatDetailsState state = new CheckPlayerStatDetailsState();
+    public static final String RETURN_MAIN_BUTTON_LABEL = "Return Home Page";
 
     public CheckPlayerStatDetailsViewModel() {
         super();

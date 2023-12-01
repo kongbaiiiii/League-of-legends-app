@@ -10,7 +10,7 @@ public class SelectStatController {
         this.selectStatUseCaseInteractor = selectStatUseCaseInteractor;
     }
 
-    public void excute(){
+    public void execute(){
         selectStatUseCaseInteractor.execute();
     }
 }
