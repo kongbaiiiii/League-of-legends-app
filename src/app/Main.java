@@ -8,10 +8,14 @@ import entity.NormalMatchesFactory;
 import entity.NormalPlayerFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.check_match.CheckMatchViewModel;
+import interface_adapter.check_player_stat_details.CheckPlayerStatDetailsViewModel;
 import interface_adapter.key_setup.KeySetupViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LogInViewModel;
+import interface_adapter.select_stat.SelectStatController;
 import interface_adapter.update.UpdateViewModel;
+import use_case.select_stat.SelectStatInteractor;
+import use_case.select_stat.SelectStatOutputBoundary;
 import view.*;
 
 import javax.swing.*;
@@ -66,6 +70,7 @@ public class Main {
         UpdateViewModel updateViewModel = new UpdateViewModel();
         CheckMatchViewModel checkMatchViewModel = new CheckMatchViewModel();
         KeySetupViewModel keySetupViewModel = new KeySetupViewModel();
+        CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel = new CheckPlayerStatDetailsViewModel();
 
         AllPurposeDataAccessObject allPurposeDataAccessObject;
         try {
@@ -130,6 +135,29 @@ public class Main {
                 viewManagerModel, playerDataAccessObject);
 
         frame.getContentPane().add(keySetupView);
+        frame.setSize(900, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    private static void playerPlotSetup() {
+        JFrame frame = new JFrame("Player Plot View");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
+        CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel = new CheckPlayerStatDetailsViewModel();
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        SelectStatOutputBoundary selectStatOutputBoundary = new SelectStatOutputBoundary() {
+            @Override
+            public void prepareSuccessView() {
+
+            }
+        };
+        SelectStatInteractor selectStatInteractor = new SelectStatInteractor(selectStatOutputBoundary);
+        SelectStatController selectStatController = new SelectStatController(selectStatInteractor);
+
+        PlayerPlotView playerPlotView = PlayerPlotViewFactory.create(viewManagerModel, checkPlayerStatDetailsViewModel, selectStatController, loggedInViewModel);
+
+        frame.getContentPane().add(playerPlotView);
         frame.setSize(900, 600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
