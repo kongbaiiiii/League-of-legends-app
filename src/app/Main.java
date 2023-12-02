@@ -13,6 +13,7 @@ import interface_adapter.key_setup.KeySetupViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LogInViewModel;
 import interface_adapter.select_stat.SelectStatController;
+import interface_adapter.select_stat.SelectStatViewModel;
 import interface_adapter.update.UpdateViewModel;
 import use_case.select_stat.SelectStatInteractor;
 import use_case.select_stat.SelectStatOutputBoundary;
@@ -71,6 +72,7 @@ public class Main {
         CheckMatchViewModel checkMatchViewModel = new CheckMatchViewModel();
         KeySetupViewModel keySetupViewModel = new KeySetupViewModel();
         CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel = new CheckPlayerStatDetailsViewModel();
+        SelectStatViewModel selectStatViewModel = new SelectStatViewModel();
 
         AllPurposeDataAccessObject allPurposeDataAccessObject;
         try {
@@ -94,7 +96,7 @@ public class Main {
                 playerDataAccessObject, keySetupViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
-        PlayerPlotView playerPlotView = PlayerPlotViewFactory.create(viewManagerModel, checkPlayerStatDetailsViewModel, loggedInViewModel);
+        PlayerPlotView playerPlotView = PlayerPlotViewFactory.create(viewManagerModel, checkPlayerStatDetailsViewModel, loggedInViewModel, selectStatViewModel);
         views.add(playerPlotView, playerPlotView.viewName);
 
         File playerFile = new File("player.csv");

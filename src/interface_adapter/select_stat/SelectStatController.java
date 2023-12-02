@@ -1,12 +1,11 @@
 package interface_adapter.select_stat;
 
-import use_case.select_stat.SelectStatInputData;
-import use_case.select_stat.SelectStatInteractor;
+import use_case.select_stat.SelectStatInputBoundary;
 
 public class SelectStatController {
-    private final SelectStatInteractor selectStatUseCaseInteractor;
+    private final SelectStatInputBoundary selectStatUseCaseInteractor;
 
-    public SelectStatController(SelectStatInteractor selectStatUseCaseInteractor) {
+    public SelectStatController(SelectStatInputBoundary selectStatUseCaseInteractor) {
         this.selectStatUseCaseInteractor = selectStatUseCaseInteractor;
     }
 

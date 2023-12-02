@@ -12,8 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PlayerPlotView extends JPanel implements ActionListener {
     public String viewName = "Check Player Stat Details";
@@ -21,8 +19,9 @@ public class PlayerPlotView extends JPanel implements ActionListener {
     private JPanel statPlotPanel;
     private JButton selectStatButton;
     private ArrayList<String> matchIDList = new ArrayList<>();
-    private SelectStatController selectStatController;
+    private final SelectStatController selectStatController;
     private final ReturnMainController returnMainController;
+    private final CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel;
     private final JButton returnMain;
     private BufferedImage stat1Image;
     private BufferedImage stat2Image;
@@ -35,10 +34,15 @@ public class PlayerPlotView extends JPanel implements ActionListener {
     private JPanel stat4Panel;
     private JPanel stat5Panel;
 
-    public PlayerPlotView(CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel, ReturnMainController returnMainController) {
+    public PlayerPlotView(SelectStatController selectStatController, CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel, ReturnMainController returnMainController) {
+        this.selectStatController = selectStatController;
+        this.checkPlayerStatDetailsViewModel = checkPlayerStatDetailsViewModel;
         this.returnMainController = returnMainController;
+
         returnMain = new JButton(CheckPlayerStatDetailsViewModel.RETURN_MAIN_BUTTON_LABEL);
         returnMain.setPreferredSize(new Dimension(150, 50));
+
+        selectStatButton = new JButton(CheckPlayerStatDetailsViewModel.SELECT_STAT_BUTTON_LABEL);
 
         returnMain.addActionListener(new ActionListener() {
             @Override
@@ -48,8 +52,17 @@ public class PlayerPlotView extends JPanel implements ActionListener {
                 }
             }
         });
-        setLayout(new BorderLayout());
 
+        selectStatButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == selectStatButton) {
+                    PlayerPlotView.this.selectStatController.execute();
+                }
+            }
+        });
+
+        this.setLayout(new BorderLayout());
         playerDataPanel = new JPanel();
         playerDataPanel.setLayout(new BoxLayout(playerDataPanel, BoxLayout.Y_AXIS));
         add(playerDataPanel, BorderLayout.WEST);
@@ -62,9 +75,15 @@ public class PlayerPlotView extends JPanel implements ActionListener {
         statPlotPanel = new JPanel();
         add(statPlotPanel, BorderLayout.CENTER);
 
+        JPanel middlePanel = createPanel(900, 550);
+        try {
+            paintImage(middlePanel);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        this.add(middlePanel, BorderLayout.NORTH);
+
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-        selectStatButton = new JButton("Select Stat");
-        selectStatButton.addActionListener(this);
 
         Dimension buttonSize = selectStatButton.getPreferredSize();
         selectStatButton.setPreferredSize(new Dimension((int)(buttonSize.width * 1.2), (int)(buttonSize.height * 1.2)));
@@ -89,8 +108,8 @@ public class PlayerPlotView extends JPanel implements ActionListener {
             }
         };
     }
-    private void updateStatPlot(JPanel updateStatPlot) throws IOException {
-        updateStatPlot.setLayout(new GridLayout(3, 1));
+    private void paintImage(JPanel imagePanel) throws IOException {
+        imagePanel.setLayout(new GridLayout(3, 1));
         stat1Image = ImageIO.read(new File("images/stat1.png"));
         stat2Image = ImageIO.read(new File("images/stat2.png"));
         stat3Image = ImageIO.read(new File("images/stat3.png"));
@@ -101,20 +120,18 @@ public class PlayerPlotView extends JPanel implements ActionListener {
         stat3Panel = createPanelByImage(stat3Image);
         stat4Panel = createPanelByImage(stat4Image);
         stat5Panel = createPanelByImage(stat5Image);
-        updateStatPlot.removeAll();
-        updateStatPlot.add(stat1Panel);
-        updateStatPlot.add(stat2Panel);
-        updateStatPlot.add(stat3Panel);
-        updateStatPlot.add(stat4Panel);
-        updateStatPlot.add(stat5Panel);
-        updateStatPlot.revalidate();
-        updateStatPlot.repaint();
+        imagePanel.removeAll();
+        imagePanel.add(stat1Panel);
+        imagePanel.add(stat2Panel);
+        imagePanel.add(stat3Panel);
+        imagePanel.add(stat4Panel);
+        imagePanel.add(stat5Panel);
+        imagePanel.revalidate();
+        imagePanel.repaint();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == selectStatButton) {
-            selectStatController.execute();
-        }
+
     }
 }

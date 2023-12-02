@@ -11,6 +11,7 @@ public class CheckPlayerStatDetailsViewModel extends ViewModel {
 
     private CheckPlayerStatDetailsState state = new CheckPlayerStatDetailsState();
     public static final String RETURN_MAIN_BUTTON_LABEL = "Return Home Page";
+    public static final String SELECT_STAT_BUTTON_LABEL = "Select Stat";
 
     public CheckPlayerStatDetailsViewModel() {
         super("Check Player Stat Details");

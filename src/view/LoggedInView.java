@@ -157,7 +157,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(checkPlayerPlot)) {
                     checkPlayerStatDetailsController.execute(loggedInViewModel.getState().getPlayerID());
-                    System.out.println("Player Plot Button Clicked");
                 }
             }
         });
