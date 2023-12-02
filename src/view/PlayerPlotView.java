@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerPlotView extends JPanel implements ActionListener {
+    public int viewName;
     private JPanel playerDataPanel;
     private JPanel statPlotPanel;
     private JButton selectStatButton;
