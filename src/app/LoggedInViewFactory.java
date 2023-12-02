@@ -15,6 +15,7 @@ import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LogInViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.select_stat.SelectStatController;
 import interface_adapter.update.UpdateController;
 import interface_adapter.update.UpdatePresenter;
 import interface_adapter.update.UpdateViewModel;
@@ -48,7 +49,7 @@ public class LoggedInViewFactory {
         UpdateController updateController = createUpdateUseCase(viewManagerModel, updateViewModel, loggedInViewModel, allPurposeDataAccessObject);
         CheckMatchController checkMatchController = createCheckMatchUseCase(checkMatchViewModel, viewManagerModel, checkMatchDataAccessObject, loggedInViewModel);
         LogoutController logoutController = createLogoutUseCase(viewManagerModel, loginViewModel, playerDataAccessObject, keySetupViewModel);
-        CheckPlayerStatDetailsController checkPlayerStatDetailsController = createCheckPlayerStatDetailUseCase(checkPlayerStatDetailsViewModel);
+        CheckPlayerStatDetailsController checkPlayerStatDetailsController = createCheckPlayerStatDetailUseCase(checkPlayerStatDetailsViewModel, loggedInViewModel, viewManagerModel);
         return new LoggedInView(loggedInViewModel, updateController, updateViewModel, checkPlayerStatDetailsViewModel, checkPlayerStatDetailsController, checkMatchController, logoutController);
     }
 
@@ -79,8 +80,8 @@ public class LoggedInViewFactory {
         return new LogoutController(logoutInteractor);
     }
 
-    private static CheckPlayerStatDetailsController createCheckPlayerStatDetailUseCase(CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel){
-        CheckPlayerStatPlotOutputBoundary checkPlayerStatPlotOutputBoundary = new CheckPlayerStatDetailsPresenter(checkPlayerStatDetailsViewModel);
+    private static CheckPlayerStatDetailsController createCheckPlayerStatDetailUseCase(CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel, LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel){
+        CheckPlayerStatPlotOutputBoundary checkPlayerStatPlotOutputBoundary = new CheckPlayerStatDetailsPresenter(checkPlayerStatDetailsViewModel, loggedInViewModel, viewManagerModel);
         CheckPlayerStatPlotInputBoundary checkPlayerStatPlotInteractor = new CheckPlayerStatPlotInteractor(checkPlayerStatPlotOutputBoundary);
         return new CheckPlayerStatDetailsController(checkPlayerStatPlotInteractor);
     }
