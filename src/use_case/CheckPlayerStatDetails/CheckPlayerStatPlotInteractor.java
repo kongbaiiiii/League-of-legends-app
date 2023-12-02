@@ -1,13 +1,14 @@
 package use_case.CheckPlayerStatDetails;
 
-public class CheckPlayerStatPlotInteractor {
+public class CheckPlayerStatPlotInteractor implements CheckPlayerStatPlotInputBoundary{
     final CheckPlayerStatPlotOutputBoundary playerStatDetailsPresenter;
 
-    public CheckPlayerStatPlotInteractor(String playerId, CheckPlayerStatPlotOutputBoundary playerStatDetailsPresenter) {
+    public CheckPlayerStatPlotInteractor(CheckPlayerStatPlotOutputBoundary playerStatDetailsPresenter) {
         this.playerStatDetailsPresenter = playerStatDetailsPresenter;
     }
 
-    public void execute() {
+    @Override
+    public void execute(CheckPlayerStatPlotInputData checkPlayerStatPlotInputData) {
         playerStatDetailsPresenter.prepareSuccessView();
     }
 }

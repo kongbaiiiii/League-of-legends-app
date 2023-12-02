@@ -1,6 +1,8 @@
 package view;
 
 import interface_adapter.check_match.CheckMatchController;
+import interface_adapter.check_player_stat_details.CheckPlayerStatDetailsController;
+import interface_adapter.check_player_stat_details.CheckPlayerStatDetailsViewModel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
@@ -31,11 +33,13 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     private final UpdateViewModel updateViewModel;
 
+    private final CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel;
+
+    private final CheckPlayerStatDetailsController checkPlayerStatDetailsController;
+
     private final CheckMatchController checkMatchController;
 
     private final LogoutController logoutController;
-
-//    private final LogoutController logoutController;
 
 
 //    TODO: Add CheckPlayerDetailController and LogoutController.
@@ -64,11 +68,13 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 //TODO There will be 20 checkMatch buttons in total, and each button should correspond to a specific matchID.
 
     public LoggedInView(LoggedInViewModel loggedInViewModel, UpdateController updateController,
-                        UpdateViewModel updateViewModel, CheckMatchController checkMatchController,
+                        UpdateViewModel updateViewModel, CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel, CheckPlayerStatDetailsController checkPlayerStatDetailsController, CheckMatchController checkMatchController,
                         LogoutController logoutController) {
         this.loggedInViewModel = loggedInViewModel;
         this.updateController = updateController;
         this.updateViewModel = updateViewModel;
+        this.checkPlayerStatDetailsViewModel = checkPlayerStatDetailsViewModel;
+        this.checkPlayerStatDetailsController = checkPlayerStatDetailsController;
         this.checkMatchController = checkMatchController;
         this.logoutController = logoutController;
         loggedInViewModel.addPropertyChangeListener(this);
@@ -147,6 +153,15 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(logout)) {
                     logoutController.execute();
+                }
+            }
+        });
+
+        checkPlayerPlot.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(checkPlayerPlot)) {
+                    checkPlayerStatDetailsController.execute(loggedInViewModel.getState().getPlayerID());
                 }
             }
         });

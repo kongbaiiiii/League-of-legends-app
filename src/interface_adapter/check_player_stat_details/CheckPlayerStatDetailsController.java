@@ -1,6 +1,7 @@
 package interface_adapter.check_player_stat_details;
 
 import use_case.CheckPlayerStatDetails.CheckPlayerStatPlotInputBoundary;
+import use_case.CheckPlayerStatDetails.CheckPlayerStatPlotInputData;
 
 public class CheckPlayerStatDetailsController {
     private final CheckPlayerStatPlotInputBoundary interactor;
@@ -10,6 +11,7 @@ public class CheckPlayerStatDetailsController {
     }
 
     public void execute(String playerId) {
-        interactor.execute(playerId);
+        CheckPlayerStatPlotInputData checkPlayerStatPlotInputData = new CheckPlayerStatPlotInputData(playerId);
+        interactor.execute(checkPlayerStatPlotInputData);
     }
 }
