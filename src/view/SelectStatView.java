@@ -11,16 +11,19 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SelectDataView extends JPanel implements ActionListener, PropertyChangeListener {
+public class SelectStatView extends JPanel implements ActionListener, PropertyChangeListener {
+    public final String viewName = "Select Stat View";
     final SelectStatViewModel selectStatViewModel;
 
     final JButton apply;
-    public final String viewName = "select data view";
 
-    public SelectDataView(SelectStatViewModel selectStatViewModel) {
+    private ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
+
+    public SelectStatView(SelectStatViewModel selectStatViewModel) {
         this.selectStatViewModel = selectStatViewModel;
 
         this.apply = new JButton(SelectStatViewModel.APPLY_STAT_BUTTON_LABEL);
+        apply.setEnabled(false);
 
         this.setLayout(new GridLayout(14, 1));
         String[] checkBoxLabels = {
@@ -55,17 +58,56 @@ public class SelectDataView extends JPanel implements ActionListener, PropertyCh
                 SelectStatViewModel.TIME_CC_OTHERS_CHECK_BOX_VALUE,
                 SelectStatViewModel.TOTAL_DEAD_TIME_CHECK_BOX_VALUE
         };
+        this.setLayout(new GridLayout(1, 2));
+        JPanel leftPanel = new JPanel();
+        JPanel rightPanel = new JPanel();
+        leftPanel.setLayout(new GridLayout(14, 1));
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.X_AXIS));
+        this.add(leftPanel);
+        this.add(rightPanel);
+
         ArrayList<String> checkBoxLabelsList = new ArrayList<>(Arrays.asList(checkBoxLabels));
         ArrayList<String> checkBoxValuesList = new ArrayList<>(Arrays.asList(checkBoxValues));
         for (int i = 0; i < 13; i++) {
             JPanel subPanel = createSubPanel(checkBoxLabelsList.get(i), checkBoxValuesList.get(i));
-            this.add(subPanel);
+            leftPanel.add(subPanel);
         }
+
+        rightPanel.add(apply);
+
+        this.apply.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == apply) {
+                //TODO invoke applySelection controller
+                }
+            }
+        });
     }
 
     private JPanel createSubPanel(String label, String value){
         JPanel subPanel = new JPanel();
+        subPanel.setLayout(new GridLayout(1, 1));
 
+        JCheckBox checkBox = new JCheckBox(label);
+        checkBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == checkBox){
+                    if (checkBox.isSelected()){
+                        selectStatViewModel.getState().addSelection(label, value);
+                        disableOtherCheckBoxes();
+                        enableApplyButton();
+                    }else{
+                        selectStatViewModel.getState().removeSelection(label, value);
+                        enableOtherCheckBoxes();
+                        disableApplyButton();
+                    }
+                }
+            }
+        });
+        checkBoxes.add(checkBox);
+        subPanel.add(checkBox);
         return subPanel;
     }
 
@@ -77,5 +119,36 @@ public class SelectDataView extends JPanel implements ActionListener, PropertyCh
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+    }
+
+    public void disableOtherCheckBoxes(){
+        if (selectStatViewModel.getState().getNumberOfSelection() == 5){
+            ArrayList<String> selectedCheckBoxeLabels = selectStatViewModel.getState().getSelectionLablesList();
+            for (JCheckBox checkBox: checkBoxes) {
+                if (!(selectedCheckBoxeLabels.contains(checkBox.getText()))){
+                    checkBox.setEnabled(false);
+                }
+            }
+        }
+    }
+
+    public void enableOtherCheckBoxes(){
+        if (selectStatViewModel.getState().getNumberOfSelection() == 4){
+            for (JCheckBox checkBox: checkBoxes) {
+                checkBox.setEnabled(true);
+            }
+        }
+    }
+
+    public void enableApplyButton(){
+        if (selectStatViewModel.getState().getNumberOfSelection() == 5){
+            apply.setEnabled(true);
+        }
+    }
+
+    public void disableApplyButton(){
+        if (selectStatViewModel.getState().getNumberOfSelection() == 4){
+            apply.setEnabled(false);
+        }
     }
 }

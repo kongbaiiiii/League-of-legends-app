@@ -12,11 +12,8 @@ import interface_adapter.check_player_stat_details.CheckPlayerStatDetailsViewMod
 import interface_adapter.key_setup.KeySetupViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LogInViewModel;
-import interface_adapter.select_stat.SelectStatController;
 import interface_adapter.select_stat.SelectStatViewModel;
 import interface_adapter.update.UpdateViewModel;
-import use_case.select_stat.SelectStatInteractor;
-import use_case.select_stat.SelectStatOutputBoundary;
 import view.*;
 
 import javax.swing.*;
@@ -97,6 +94,9 @@ public class Main {
 
         PlayerPlotView playerPlotView = PlayerPlotViewFactory.create(viewManagerModel, checkPlayerStatDetailsViewModel, loggedInViewModel, selectStatViewModel);
         views.add(playerPlotView, playerPlotView.viewName);
+
+        SelectStatView selectDataView = SelectDataViewFactory.create(viewManagerModel, selectStatViewModel);
+        views.add(selectDataView, selectDataView.viewName);
 
         File playerFile = new File("player.csv");
         if (playerFile.length() == 0) {

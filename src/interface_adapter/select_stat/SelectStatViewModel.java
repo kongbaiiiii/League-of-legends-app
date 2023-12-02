@@ -42,7 +42,7 @@ public class SelectStatViewModel extends ViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public SelectStatViewModel() {
-        super("Select Stat");
+        super("Select Stat View");
     }
 
     @Override
