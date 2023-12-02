@@ -34,14 +34,4 @@ public class LogoutPresenter implements LogoutOutputBoundary {
         viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
-
-    @Override
-    public void prepareFailView(String error) {
-        JOptionPane.showMessageDialog(null, error);
-        KeySetupState state = keySetUpViewModel.getState();
-        state.setKeyError(error);
-        keySetUpViewModel.setState(state);
-        keySetUpViewModel.firePropertyChanged();
-        System.out.println("key error");
-    }
 }

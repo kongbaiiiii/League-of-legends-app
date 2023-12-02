@@ -14,9 +14,6 @@ public class LogoutInteractor implements LogoutInputBoundary {
 
     @Override
     public void execute() {
-        if (!playerDataAccessObject.validKey()){
-            playerPresenter.prepareFailView("authoKey not valid");
-        }
         playerDataAccessObject.logout();
         playerPresenter.prepareSuccessView();
     }
