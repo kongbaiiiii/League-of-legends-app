@@ -7,14 +7,23 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 import static org.junit.Assert.assertNotNull;
 
 public class LoginTest {
     static boolean popUpDiscovered = false;
+
+    public void clearFile(String filepath){
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter(filepath));
+            writer.write("");
+            writer.close();
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
 
     public JButton getButton() {
         JFrame app = null;
@@ -69,6 +78,8 @@ public class LoginTest {
 
     @org.junit.Test
     public void testLoginButtonPresent(){
+        clearFile("player.csv");
+        clearFile("matchdata.csv");
         Main.main(null);
         JButton button = getButton();
         assert(button.getText().equals("Log in"));
@@ -76,6 +87,8 @@ public class LoginTest {
 
     @org.junit.Test
     public void errorIDLoginPopUPTest(){
+        clearFile("player.csv");
+        clearFile("matchdata.csv");
         Main.main(null);
         JButton button = getButton();
         JTextField textField =getTextField();
@@ -87,6 +100,8 @@ public class LoginTest {
 
     @org.junit.Test
     public void correctIDLoginFileWriteTest(){
+        clearFile("player.csv");
+        clearFile("matchdata.csv");
         Main.main(null);
         JButton button = getButton();
         JTextField textField =getTextField();
