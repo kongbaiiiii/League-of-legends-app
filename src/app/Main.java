@@ -38,7 +38,6 @@ public class Main {
 
         boolean validKey = playerDataAccessObject.validKey();
         if (!validKey) {
-            System.out.println("start key setup");
             SwingUtilities.invokeLater(() -> {
                 Keysetup();
             });
@@ -100,7 +99,6 @@ public class Main {
         views.add(playerPlotView, playerPlotView.viewName);
 
         File playerFile = new File("player.csv");
-        System.out.println("start main");
         if (playerFile.length() == 0) {
             viewManagerModel.setActiveView(loginView.viewName);
             viewManagerModel.firePropertyChanged();
