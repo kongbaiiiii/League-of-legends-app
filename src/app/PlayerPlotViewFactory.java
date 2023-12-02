@@ -13,8 +13,7 @@ import interface_adapter.logged_in.LoggedInViewModel;
 
 public class PlayerPlotViewFactory {
 
-    public static PlayerPlotView create(ViewManagerModel viewManagerModel, CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel,
-                                        SelectStatController selectStatController, LoggedInViewModel loggedInViewModel){
+    public static PlayerPlotView create(ViewManagerModel viewManagerModel, CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel, LoggedInViewModel loggedInViewModel){
         ReturnMainController returnMainController = createReturnMainUseCase(viewManagerModel, loggedInViewModel);
         return new PlayerPlotView(checkPlayerStatDetailsViewModel, returnMainController);
     }

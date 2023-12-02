@@ -1,14 +1,9 @@
 package interface_adapter.check_player_stat_details;
 
-import app.Main;
-import app.PlayerPlotViewFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.ViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.select_stat.SelectStatController;
 import use_case.CheckPlayerStatDetails.CheckPlayerStatPlotOutputBoundary;
 import use_case.CheckPlayerStatDetails.CheckPlayerStatPlotOutputdata;
-import view.PlayerPlotView;
 
 public class CheckPlayerStatDetailsPresenter implements CheckPlayerStatPlotOutputBoundary {
     private final CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel;
@@ -24,7 +19,6 @@ public class CheckPlayerStatDetailsPresenter implements CheckPlayerStatPlotOutpu
 
     @Override
     public void prepareSuccessView(CheckPlayerStatPlotOutputdata checkPlayerStatPlotOutputdata) {
-        this.loggedInViewModel.firePropertyChanged();
         this.viewManagerModel.setActiveView(checkPlayerStatDetailsViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }

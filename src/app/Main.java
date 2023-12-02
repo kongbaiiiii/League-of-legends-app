@@ -94,6 +94,8 @@ public class Main {
                 playerDataAccessObject, keySetupViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
+        PlayerPlotView playerPlotView = PlayerPlotViewFactory.create(viewManagerModel, checkPlayerStatDetailsViewModel, loggedInViewModel);
+        views.add(playerPlotView, playerPlotView.viewName);
 
         File playerFile = new File("player.csv");
         System.out.println("start main");

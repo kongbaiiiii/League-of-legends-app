@@ -9,7 +9,8 @@ public class CheckPlayerStatPlotInteractor implements CheckPlayerStatPlotInputBo
 
     @Override
     public void execute(CheckPlayerStatPlotInputData checkPlayerStatPlotInputData) {
-        playerStatDetailsPresenter.prepareSuccessView();
+        CheckPlayerStatPlotOutputdata checkPlayerStatPlotOutputdata = new CheckPlayerStatPlotOutputdata(checkPlayerStatPlotInputData.getPlayerId());
+        playerStatDetailsPresenter.prepareSuccessView(checkPlayerStatPlotOutputdata);
     }
 }
 

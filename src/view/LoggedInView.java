@@ -41,11 +41,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     private final LogoutController logoutController;
 
-
-//    TODO: Add CheckPlayerDetailController and LogoutController.
-//    private final LogoutController logoutController;
-//    private final CheckPlayerDetailController checkPlayerDetailController;
-
     private final JButton update;
 
     private final JButton logout;
@@ -162,6 +157,7 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(checkPlayerPlot)) {
                     checkPlayerStatDetailsController.execute(loggedInViewModel.getState().getPlayerID());
+                    System.out.println("Player Plot Button Clicked");
                 }
             }
         });
@@ -194,7 +190,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(checkMatchButton)) {
-                    System.out.println(state.getMatchIDList().get(i));
                     checkMatchController.execute(state.getMatchIDList().get(i));
                 }
             }
