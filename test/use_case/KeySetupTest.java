@@ -50,17 +50,31 @@ public class KeySetupTest {
 
         assertNotNull(app); // found the window?
 
-        Component root = app.getComponent(0);
+        Container contentPane = app.getContentPane();
 
-        Component cp = ((JRootPane) root).getContentPane();
+        KeySetupView keySetupView = findKeySetupView(contentPane);
 
-        KeySetupView keySetupView = (KeySetupView) cp;
+        assertNotNull(keySetupView);
 
-        JPanel buttons = (JPanel) keySetupView.getComponent(0);
+        JPanel buttons = (JPanel) keySetupView.getComponent(2);
 
         JButton submit = (JButton) buttons.getComponent(0);
 
         return submit;
+    }
+
+    private KeySetupView findKeySetupView(Container container) {
+        for (Component component : container.getComponents()) {
+            if (component instanceof KeySetupView) {
+                return (KeySetupView) component;
+            } else if (component instanceof Container) {
+                KeySetupView result = findKeySetupView((Container) component);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+        return null;
     }
 
     public JTextField getTextField(){
@@ -93,9 +107,9 @@ public class KeySetupTest {
         clearFile("player.csv");
         clearFile("matchdata.csv");
         clearKey();
-        Main.main(null);
+        Main.Keysetup();
         JButton button = getButton();
-        assert(button.getText().equals("submit"));
+        assert(button.getText().equals("Submit"));
     }
 
 //    @org.junit.Test
