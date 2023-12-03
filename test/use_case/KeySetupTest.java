@@ -17,6 +17,8 @@ import static org.junit.Assert.assertNotNull;
 public class KeySetupTest {
     static boolean popUpDiscovered = false;
 
+    private String validKey;
+
     public void clearFile(String filepath){
         BufferedWriter writer;
         try {
@@ -30,9 +32,23 @@ public class KeySetupTest {
 
     public void clearKey(){
         BufferedWriter writer;
+        BufferedReader reader;
         try {
+            reader = new BufferedReader(new FileReader("authoKey.csv"));
+            validKey = reader.readLine();
             writer = new BufferedWriter(new FileWriter("authoKey.csv"));
             writer.write("somekey");
+            writer.close();
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void restoryKey(){
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter("authoKey.csv"));
+            writer.write(validKey);
             writer.close();
         } catch (IOException e){
             throw new RuntimeException(e);
@@ -87,19 +103,15 @@ public class KeySetupTest {
         }
         assertNotNull(app); // found the window?
 
-        Component root = app.getComponent(0);
+        Container contentPane = app.getContentPane();
 
-        Component cp = ((JRootPane) root).getContentPane();
+        KeySetupView keySetupView = findKeySetupView(contentPane);
 
-        JPanel jp = (JPanel) cp;
+        assertNotNull(keySetupView);
 
-        JPanel jp2 = (JPanel) jp.getComponent(0);
+        JPanel textField = (JPanel) keySetupView.getComponent(1);
 
-        LoginView loginView = (LoginView) jp2.getComponent(0);
-
-        JPanel labelText = (JPanel) loginView.getComponent(1);
-
-        return (JTextField) labelText.getComponent(1);
+        return (JTextField) textField.getComponent(1);
     }
 
     @org.junit.Test
@@ -112,68 +124,45 @@ public class KeySetupTest {
         assert(button.getText().equals("Submit"));
     }
 
-//    @org.junit.Test
-//    public void errorIDLoginPopUPTest(){
-//        clearFile("player.csv");
-//        clearFile("matchdata.csv");
-//        Main.main(null);
-//        JButton button = getButton();
-//        JTextField textField =getTextField();
-//        textField.setText("asdacavsvca");
-//        createCloseTimer().start();
-//        button.doClick();
-//        assert (popUpDiscovered);
-//    }
-//
-//    @org.junit.Test
-//    public void correctIDLoginFileWriteTest(){
-//        clearFile("player.csv");
-//        clearFile("matchdata.csv");
-//        Main.main(null);
-//        JButton button = getButton();
-//        JTextField textField =getTextField();
-//        textField.setText("wrnmbb");
-//        button.doClick();
-//
-//        try {
-//            BufferedReader reader = new BufferedReader(new FileReader("player.csv"));
-//            String line1 = reader.readLine();
-//            String line2 = reader.readLine();
-//            assert (line1.equals("wrnmbb") && line2.equals("NcmRba2CroVoIwC20pdtjUpkV-VmwCeLW7Tfy3jm6_Tpt_7ArCpKsMALsioBC3MROaJA-uI0_rGFPA"));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    private Timer createCloseTimer() {
-//        ActionListener close = new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//
-//                Window[] windows = Window.getWindows();
-//                for (Window window : windows) {
-//
-//                    if (window instanceof JDialog) {
-//
-//                        JDialog dialog = (JDialog)window;
-//
-//                        // this ignores old dialogs
-//                        if (dialog.isVisible()) {
-//
-//                            // store the information we got from the JDialog
-//                            LoginTest.popUpDiscovered = true;
-//
-//                            window.dispose();
-//                        }
-//                    }
-//                }
-//            }
-//
-//        };
-//
-//        Timer t = new Timer(1000, close);
-//        t.setRepeats(false);
-//        return t;
-//    }
+    @org.junit.Test
+    public void invalidKeyPopUPTest(){
+        clearFile("player.csv");
+        clearFile("matchdata.csv");
+        clearKey();
+        Main.Keysetup();
+        JButton button = getButton();
+        JTextField textField =getTextField();
+        textField.setText("somekey");
+        createCloseTimer().start();
+        button.doClick();
+        assert (popUpDiscovered);
+    }
+
+    private Timer createCloseTimer() {
+        ActionListener close = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Window[] windows = Window.getWindows();
+                for (Window window : windows) {
+
+                    if (window instanceof JDialog) {
+
+                        JDialog dialog = (JDialog)window;
+
+                        if (dialog.isVisible()) {
+                            System.out.println("found");
+                            KeySetupTest.popUpDiscovered = true;
+
+                            window.dispose();
+                        }
+                    }
+                }
+            }
+
+        };
+        Timer t = new Timer(2000, close);
+        t.setRepeats(false);
+        return t;
+    }
 }
