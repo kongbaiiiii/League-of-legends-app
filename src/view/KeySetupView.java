@@ -69,25 +69,6 @@ public class KeySetupView extends JPanel implements ActionListener, PropertyChan
             }
         });
 
-//        keyInputField.addKeyListener(new KeyListener() {
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//                KeySetupState currentState = keySetupViewModel.getState();
-//                currentState.setKey(keyInputField.getText() + e.getKeyChar());
-//                keySetupViewModel.setState(currentState);
-//            }
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//
-//            }
-//        });
-
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
