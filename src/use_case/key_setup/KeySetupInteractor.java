@@ -17,7 +17,6 @@ public class KeySetupInteractor implements KeySetupInputBoundary{
         String key = keySetupInputData.getKey();
         userDataAccessObject.setKey(key);
         if (userDataAccessObject.validKey(key)) {
-            System.out.println("valid key");
             userDataAccessObject.saveKey();
             userPresenter.prepareSuccessView();
         }else{
