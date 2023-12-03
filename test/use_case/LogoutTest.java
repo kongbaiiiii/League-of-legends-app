@@ -1,3 +1,5 @@
+package use_case;
+
 import app.Main;
 import view.LoggedInView;
 import view.LoginView;

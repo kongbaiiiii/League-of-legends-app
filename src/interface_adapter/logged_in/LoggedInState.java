@@ -10,14 +10,6 @@ public class LoggedInState {
     ArrayList<Long> deathsList = new ArrayList<Long>();
     ArrayList<Long> killsList = new ArrayList<Long>();
 
-    ArrayList<Long> item0List = new ArrayList<Long>();
-    ArrayList<Long> item1List = new ArrayList<Long>();
-    ArrayList<Long> item2List = new ArrayList<Long>();
-    ArrayList<Long> item3List = new ArrayList<Long>();
-    ArrayList<Long> item4List = new ArrayList<Long>();
-    ArrayList<Long> item5List = new ArrayList<Long>();
-    ArrayList<Long> item6List = new ArrayList<Long>();
-
     ArrayList<String> championIdList = new ArrayList<String>();
 
     ArrayList<Boolean> winList = new ArrayList<Boolean>();
@@ -75,63 +67,6 @@ public class LoggedInState {
 
     public ArrayList<String> getChampionIdList() {
         return championIdList;
-    }
-
-    public void setItem0List(ArrayList<Long> item0List) {
-        this.item0List = item0List;
-    }
-
-    public ArrayList<Long> getItem0List() {
-        return item0List;
-    }
-
-    public void setItem1List(ArrayList<Long> item1List) {
-        this.item1List = item1List;
-    }
-
-    public ArrayList<Long> getItem1List() {
-        return item1List;
-    }
-
-    public void setItem2List(ArrayList<Long> item2List) {
-        this.item2List = item2List;
-    }
-
-    public ArrayList<Long> getItem2List() {
-        return item2List;
-    }
-
-
-    public void setItem3List(ArrayList<Long> item3List) {
-        this.item3List = item3List;
-    }
-
-    public ArrayList<Long> getItem3List() {
-        return item3List;
-    }
-
-    public void setItem4List(ArrayList<Long> item4List) {
-        this.item4List = item4List;
-    }
-
-    public ArrayList<Long> getItem4List() {
-        return item4List;
-    }
-
-    public void setItem5List(ArrayList<Long> item5List) {
-        this.item5List = item5List;
-    }
-
-    public ArrayList<Long> getItem5List() {
-        return item5List;
-    }
-
-    public void setItem6List(ArrayList<Long> item6List) {
-        this.item6List = item6List;
-    }
-
-    public ArrayList<Long> getItem6List() {
-        return item6List;
     }
 
     public void setMatchIDList(ArrayList<String> matchIDList) {
