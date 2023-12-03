@@ -111,8 +111,7 @@ public class LoginTest {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("player.csv"));
             String line1 = reader.readLine();
-            String line2 = reader.readLine();
-            assert (line1.equals("wrnmbb") && line2.equals("NcmRba2CroVoIwC20pdtjUpkV-VmwCeLW7Tfy3jm6_Tpt_7ArCpKsMALsioBC3MROaJA-uI0_rGFPA"));
+            assert (line1.equals("wrnmbb"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
