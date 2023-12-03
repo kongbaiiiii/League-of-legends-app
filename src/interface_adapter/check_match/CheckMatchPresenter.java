@@ -29,9 +29,4 @@ public class CheckMatchPresenter implements CheckMatchOutputBoundary {
         viewManagerModel.setActiveView(checkMatchViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
-
-    @Override
-    public void prepareFailView(String error){
-
-    }
 }
