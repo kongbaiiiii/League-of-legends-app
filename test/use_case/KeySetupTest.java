@@ -122,6 +122,7 @@ public class KeySetupTest {
         Main.Keysetup();
         JButton button = getButton();
         assert(button.getText().equals("Submit"));
+        restoryKey();
     }
 
     @org.junit.Test
@@ -136,6 +137,7 @@ public class KeySetupTest {
         createCloseTimer().start();
         button.doClick();
         assert (popUpDiscovered);
+        restoryKey();
     }
 
     private Timer createCloseTimer() {
