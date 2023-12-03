@@ -120,7 +120,7 @@ public class Main {
     }
 
 
-    private static void Keysetup() {
+    public static void Keysetup() {
         JFrame frame = new JFrame("Key setup");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
