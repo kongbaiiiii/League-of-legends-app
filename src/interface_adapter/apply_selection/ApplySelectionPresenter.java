@@ -7,7 +7,6 @@ import interface_adapter.check_player_stat_details.CheckPlayerStatDetailsViewMod
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.select_stat.SelectStatViewModel;
 import use_case.Apply_Selection.ApplySelectionOutputBoundary;
-import use_case.Apply_Selection.ApplySelectionOutputData;
 import view.PlayerPlotView;
 
 import javax.swing.*;
@@ -34,7 +33,7 @@ public class ApplySelectionPresenter implements ApplySelectionOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(ApplySelectionOutputData applySelectionOutputData) {
+    public void prepareSuccessView() {
         JOptionPane.showMessageDialog(null, applySelectionViewModel.getAPPLY_SELECTION_SUCCESSFUL_MESSAGE());
         PlayerPlotView playerPlotView = PlayerPlotViewFactory.create(viewManagerModel,checkPlayerStatDetailsViewModel,loggedInViewModel, selectStatViewModel);
         Main.views.add(playerPlotView, playerPlotView.viewName);
