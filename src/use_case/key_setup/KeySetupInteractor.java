@@ -1,5 +1,7 @@
 package use_case.key_setup;
 
+import view.KeySetupView;
+
 public class KeySetupInteractor implements KeySetupInputBoundary{
 
     final KeySetupDataAccessInterface userDataAccessObject;
@@ -17,6 +19,7 @@ public class KeySetupInteractor implements KeySetupInputBoundary{
         String key = keySetupInputData.getKey();
         userDataAccessObject.setKey(key);
         if (userDataAccessObject.validKey(key)) {
+            KeySetupView.validKey = true;
             userDataAccessObject.saveKey();
             userPresenter.prepareSuccessView();
         }else{

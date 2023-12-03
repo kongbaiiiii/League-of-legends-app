@@ -80,6 +80,11 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        try {
+            playerDataAccessObject = new PlayerDataAccessObject("player.csv", new NormalPlayerFactory());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         MatchDataAccessObject matchDataAccessObject;
         try {
             matchDataAccessObject = new MatchDataAccessObject("matchdata.csv", new NormalMatchFactory(), new NormalMatchesFactory());

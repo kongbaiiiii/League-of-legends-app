@@ -138,7 +138,6 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, L
             assert response.body() != null;
             JSONObject responseBody = new JSONObject(response.body().string());
             responseBody = responseBody.getJSONObject("status");
-            System.out.println(responseBody.getInt("status_code"));
             return false;
         } catch (IOException | JSONException e) {
             return true;
