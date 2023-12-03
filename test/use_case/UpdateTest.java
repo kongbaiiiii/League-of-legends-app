@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UpdateTest {
     @Test
     public void successTest() throws IOException {
-        try (FileOutputStream fos = new FileOutputStream("images/stat1")) {
+        try (FileOutputStream fos = new FileOutputStream("images/stat1.png")) {
             fos.write(0);
         } catch (IOException e) {
             e.printStackTrace();
