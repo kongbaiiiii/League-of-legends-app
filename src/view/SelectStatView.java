@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.apply_selection.ApplySelectionController;
 import interface_adapter.select_stat.SelectStatViewModel;
 
 import javax.swing.*;
@@ -15,12 +16,15 @@ public class SelectStatView extends JPanel implements ActionListener, PropertyCh
     public final String viewName = "Select Stat View";
     final SelectStatViewModel selectStatViewModel;
 
+    final ApplySelectionController applySelectionController;
+
     final JButton apply;
 
     private ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
 
-    public SelectStatView(SelectStatViewModel selectStatViewModel) {
+    public SelectStatView(SelectStatViewModel selectStatViewModel, ApplySelectionController applySelectionController) {
         this.selectStatViewModel = selectStatViewModel;
+        this.applySelectionController = applySelectionController;
 
         this.apply = new JButton(SelectStatViewModel.APPLY_STAT_BUTTON_LABEL);
         apply.setEnabled(false);
@@ -79,7 +83,13 @@ public class SelectStatView extends JPanel implements ActionListener, PropertyCh
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == apply) {
-                //TODO invoke applySelection controller
+                    String playerID = selectStatViewModel.getState().getPlayerID();
+                    String stat1 = selectStatViewModel.getState().getSelectionValuesList().get(0);
+                    String stat2 = selectStatViewModel.getState().getSelectionValuesList().get(1);
+                    String stat3 = selectStatViewModel.getState().getSelectionValuesList().get(2);
+                    String stat4 = selectStatViewModel.getState().getSelectionValuesList().get(3);
+                    String stat5 = selectStatViewModel.getState().getSelectionValuesList().get(4);
+                    applySelectionController.execute(playerID, stat1, stat2, stat3, stat4, stat5);
                 }
             }
         });

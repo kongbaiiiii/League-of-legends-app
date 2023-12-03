@@ -3,6 +3,7 @@ package app;
 import data_access.AllPurposeDataAccessObject;
 import data_access.MatchDataAccessObject;
 import data_access.PlayerDataAccessObject;
+import data_access.StatPlotDataAccessObject;
 import entity.NormalMatchFactory;
 import entity.NormalMatchesFactory;
 import entity.NormalPlayerFactory;
@@ -85,19 +86,20 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        StatPlotDataAccessObject statPlotDataAccessObject = new StatPlotDataAccessObject(matchDataAccessObject.getMatches(), playerDataAccessObject.getPlayer());
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, playerDataAccessObject);
         views.add(loginView, loginView.viewName);
 
         LoggedInView loggedInView = LoggedInViewFactory.create(viewManagerModel, updateViewModel, loggedInViewModel, loginViewModel,
                 checkPlayerStatDetailsViewModel, checkMatchViewModel, allPurposeDataAccessObject, matchDataAccessObject,
-                playerDataAccessObject, keySetupViewModel, applySelectionViewModel);
+                playerDataAccessObject, keySetupViewModel, selectStatViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
         PlayerPlotView playerPlotView = PlayerPlotViewFactory.create(viewManagerModel, checkPlayerStatDetailsViewModel, loggedInViewModel, selectStatViewModel);
         views.add(playerPlotView, playerPlotView.viewName);
 
-        SelectStatView selectDataView = SelectDataViewFactory.create(viewManagerModel, selectStatViewModel);
+        SelectStatView selectDataView = SelectDataViewFactory.create(viewManagerModel, selectStatViewModel, applySelectionViewModel, checkPlayerStatDetailsViewModel, statPlotDataAccessObject, loggedInViewModel);
         views.add(selectDataView, selectDataView.viewName);
 
         File playerFile = new File("player.csv");
@@ -143,27 +145,4 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-//    private static void playerPlotSetup() {
-//        JFrame frame = new JFrame("Player Plot View");
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
-//        CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel = new CheckPlayerStatDetailsViewModel();
-//        ViewManagerModel viewManagerModel = new ViewManagerModel();
-//        SelectStatOutputBoundary selectStatOutputBoundary = new SelectStatOutputBoundary() {
-//            @Override
-//            public void prepareSuccessView() {
-//
-//            }
-//        };
-//        SelectStatInteractor selectStatInteractor = new SelectStatInteractor(selectStatOutputBoundary);
-//        SelectStatController selectStatController = new SelectStatController(selectStatInteractor);
-//
-//        PlayerPlotView playerPlotView = PlayerPlotViewFactory.create(viewManagerModel, checkPlayerStatDetailsViewModel, selectStatController, loggedInViewModel);
-//
-//        frame.getContentPane().add(playerPlotView);
-//        frame.setSize(900, 600);
-//        frame.setLocationRelativeTo(null);
-//        frame.setVisible(true);
-//    }
 }

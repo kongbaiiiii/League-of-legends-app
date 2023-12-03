@@ -43,6 +43,7 @@ public class PlayerPlotView extends JPanel implements ActionListener {
         returnMain.setPreferredSize(new Dimension(150, 50));
 
         selectStatButton = new JButton(CheckPlayerStatDetailsViewModel.SELECT_STAT_BUTTON_LABEL);
+        selectStatButton.setPreferredSize(new Dimension(120, 40));
 
         returnMain.addActionListener(new ActionListener() {
             @Override
@@ -88,6 +89,7 @@ public class PlayerPlotView extends JPanel implements ActionListener {
         Dimension buttonSize = selectStatButton.getPreferredSize();
         selectStatButton.setPreferredSize(new Dimension((int)(buttonSize.width * 1.2), (int)(buttonSize.height * 1.2)));
 
+        buttonPanel.add(returnMain);
         buttonPanel.add(selectStatButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }

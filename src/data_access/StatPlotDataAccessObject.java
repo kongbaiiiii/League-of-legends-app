@@ -8,6 +8,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.Apply_Selection.ApplySelectionDataAccessInterface;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
-public class StatPlotDataAccessObject {
+public class StatPlotDataAccessObject implements ApplySelectionDataAccessInterface {
     private final Matches matches;
     private final Player player;
 

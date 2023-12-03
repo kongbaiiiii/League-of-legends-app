@@ -16,6 +16,7 @@ import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LogInViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
+import interface_adapter.select_stat.SelectStatViewModel;
 import interface_adapter.update.UpdateController;
 import interface_adapter.update.UpdatePresenter;
 import interface_adapter.update.UpdateViewModel;
@@ -32,6 +33,7 @@ import use_case.update.UpdateInputBoundary;
 import use_case.update.UpdateInteractor;
 import use_case.update.UpdateOutputBoundary;
 import view.LoggedInView;
+import view.SelectStatView;
 
 public class LoggedInViewFactory {
 
@@ -44,12 +46,12 @@ public class LoggedInViewFactory {
                                       UpdateDataAccessInterface allPurposeDataAccessObject,
                                       CheckMatchDataAccessInterface checkMatchDataAccessObject,
                                       PlayerDataAccessObject playerDataAccessObject,
-                                      KeySetupViewModel keySetupViewModel, ApplySelectionViewModel applySelectionViewModel){
+                                      KeySetupViewModel keySetupViewModel, SelectStatViewModel selectStatViewModel){
 
         UpdateController updateController = createUpdateUseCase(viewManagerModel, updateViewModel, loggedInViewModel, allPurposeDataAccessObject);
         CheckMatchController checkMatchController = createCheckMatchUseCase(checkMatchViewModel, viewManagerModel, checkMatchDataAccessObject, loggedInViewModel);
         LogoutController logoutController = createLogoutUseCase(viewManagerModel, loginViewModel, playerDataAccessObject, keySetupViewModel);
-        CheckPlayerStatDetailsController checkPlayerStatDetailsController = createCheckPlayerStatDetailUseCase(checkPlayerStatDetailsViewModel, loggedInViewModel, viewManagerModel);
+        CheckPlayerStatDetailsController checkPlayerStatDetailsController = createCheckPlayerStatDetailUseCase(checkPlayerStatDetailsViewModel, loggedInViewModel, selectStatViewModel, viewManagerModel);
         return new LoggedInView(loggedInViewModel, updateController, updateViewModel, checkPlayerStatDetailsViewModel, checkPlayerStatDetailsController, checkMatchController, logoutController);
     }
 
@@ -80,8 +82,8 @@ public class LoggedInViewFactory {
         return new LogoutController(logoutInteractor);
     }
 
-    private static CheckPlayerStatDetailsController createCheckPlayerStatDetailUseCase(CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel, LoggedInViewModel loggedInViewModel, ViewManagerModel viewManagerModel){
-        CheckPlayerStatPlotOutputBoundary checkPlayerStatPlotOutputBoundary = new CheckPlayerStatDetailsPresenter(checkPlayerStatDetailsViewModel, loggedInViewModel, viewManagerModel);
+    private static CheckPlayerStatDetailsController createCheckPlayerStatDetailUseCase(CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel, LoggedInViewModel loggedInViewModel, SelectStatViewModel selectStatViewModel, ViewManagerModel viewManagerModel){
+        CheckPlayerStatPlotOutputBoundary checkPlayerStatPlotOutputBoundary = new CheckPlayerStatDetailsPresenter(checkPlayerStatDetailsViewModel, loggedInViewModel, selectStatViewModel, viewManagerModel);
         CheckPlayerStatPlotInputBoundary checkPlayerStatPlotInteractor = new CheckPlayerStatPlotInteractor(checkPlayerStatPlotOutputBoundary);
         return new CheckPlayerStatDetailsController(checkPlayerStatPlotInteractor);
     }

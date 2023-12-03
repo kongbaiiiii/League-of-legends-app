@@ -10,7 +10,7 @@ public class ApplySelectionInteractor implements ApplySelectionInputBoundary {
     }
     @Override
     public void execute(ApplySelectionInputData applySelectionInputData) {
-        applySelectionDataAccessInterface.plotStats(applySelectionInputData.getPlayerId(),applySelectionInputData.getStat1(), applySelectionInputData.getStat2(), applySelectionInputData.getStat3(), applySelectionInputData.getStat4(), applySelectionInputData.getStat5());
+        applySelectionDataAccessInterface.plotStats(applySelectionInputData.getStat1(), applySelectionInputData.getStat2(), applySelectionInputData.getStat3(), applySelectionInputData.getStat4(), applySelectionInputData.getStat5());
         ApplySelectionOutputData applySelectionOutputData = new ApplySelectionOutputData();
         applySelectionOutputBoundary.prepareSuccessView(applySelectionOutputData);
     }
