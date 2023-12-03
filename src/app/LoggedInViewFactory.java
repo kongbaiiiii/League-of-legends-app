@@ -4,6 +4,7 @@ import data_access.PlayerDataAccessObject;
 import entity.MatchFactory;
 import entity.NormalMatchFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.apply_selection.ApplySelectionViewModel;
 import interface_adapter.check_match.CheckMatchController;
 import interface_adapter.check_match.CheckMatchPresenter;
 import interface_adapter.check_match.CheckMatchViewModel;
@@ -15,7 +16,6 @@ import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LogInViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.logout.LogoutPresenter;
-import interface_adapter.select_stat.SelectStatController;
 import interface_adapter.update.UpdateController;
 import interface_adapter.update.UpdatePresenter;
 import interface_adapter.update.UpdateViewModel;
@@ -44,7 +44,7 @@ public class LoggedInViewFactory {
                                       UpdateDataAccessInterface allPurposeDataAccessObject,
                                       CheckMatchDataAccessInterface checkMatchDataAccessObject,
                                       PlayerDataAccessObject playerDataAccessObject,
-                                      KeySetupViewModel keySetupViewModel){
+                                      KeySetupViewModel keySetupViewModel, ApplySelectionViewModel applySelectionViewModel){
 
         UpdateController updateController = createUpdateUseCase(viewManagerModel, updateViewModel, loggedInViewModel, allPurposeDataAccessObject);
         CheckMatchController checkMatchController = createCheckMatchUseCase(checkMatchViewModel, viewManagerModel, checkMatchDataAccessObject, loggedInViewModel);

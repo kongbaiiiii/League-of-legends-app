@@ -7,6 +7,7 @@ import entity.NormalMatchFactory;
 import entity.NormalMatchesFactory;
 import entity.NormalPlayerFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.apply_selection.ApplySelectionViewModel;
 import interface_adapter.check_match.CheckMatchViewModel;
 import interface_adapter.check_player_stat_details.CheckPlayerStatDetailsViewModel;
 import interface_adapter.key_setup.KeySetupViewModel;
@@ -69,6 +70,7 @@ public class Main {
         KeySetupViewModel keySetupViewModel = new KeySetupViewModel();
         CheckPlayerStatDetailsViewModel checkPlayerStatDetailsViewModel = new CheckPlayerStatDetailsViewModel();
         SelectStatViewModel selectStatViewModel = new SelectStatViewModel();
+        ApplySelectionViewModel applySelectionViewModel = new ApplySelectionViewModel();
 
         AllPurposeDataAccessObject allPurposeDataAccessObject;
         try {
@@ -89,7 +91,7 @@ public class Main {
 
         LoggedInView loggedInView = LoggedInViewFactory.create(viewManagerModel, updateViewModel, loggedInViewModel, loginViewModel,
                 checkPlayerStatDetailsViewModel, checkMatchViewModel, allPurposeDataAccessObject, matchDataAccessObject,
-                playerDataAccessObject, keySetupViewModel);
+                playerDataAccessObject, keySetupViewModel, applySelectionViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
         PlayerPlotView playerPlotView = PlayerPlotViewFactory.create(viewManagerModel, checkPlayerStatDetailsViewModel, loggedInViewModel, selectStatViewModel);
