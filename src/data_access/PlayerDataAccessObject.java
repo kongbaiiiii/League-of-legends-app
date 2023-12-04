@@ -176,6 +176,13 @@ public class PlayerDataAccessObject implements LoginPlayerDataAccessInterface, L
     }
 
     public Player getPlayer(){
+        try (BufferedReader reader = new BufferedReader(new FileReader(playerFile))) {
+            String playerID = reader.readLine();
+            String puuid = reader.readLine();
+            this.player = this.playerFactory.create(playerID, puuid);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return player;
     }
 }
