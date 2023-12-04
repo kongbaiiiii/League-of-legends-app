@@ -1,5 +1,6 @@
 package use_case;
 
+import data_access.AllPurposeDataAccessObject;
 import data_access.MatchDataAccessObject;
 import data_access.PlayerDataAccessObject;
 import data_access.StatPlotDataAccessObject;
@@ -32,13 +33,7 @@ public class ApplySelectionTest {
 
             }
         };
-        PlayerFactory playerFactory = new NormalPlayerFactory();
-        Player player = playerFactory.create("wrnmbb", "7GZb-UDFr6NN7NKxd_8wbMUlXZhO7KbwcYT6PwvOjhEnAOM0C33tbBAwHGrwOkhI7zct11shKwt1yg");
-        MatchDataAccessObject matchDataAccessObject = new MatchDataAccessObject("matchdata.csv", new NormalMatchFactory(), new NormalMatchesFactory());
-        MatchesFactory matchesFactory = new NormalMatchesFactory();
-        Matches matches = matchesFactory.create(matchDataAccessObject.getMatchesList());
-
-        ApplySelectionDataAccessInterface applySelectionDataAccessInterface = new StatPlotDataAccessObject(matches, player);
+        ApplySelectionDataAccessInterface applySelectionDataAccessInterface = new AllPurposeDataAccessObject("matchdata.csv", new NormalMatchFactory(), new NormalMatchesFactory(), "player.csv", new NormalPlayerFactory());
         ApplySelectionInteractor interactor = new ApplySelectionInteractor(applySelectionDataAccessInterface, applySelectionOutputBoundary);
         ApplySelectionInputData inputData = new ApplySelectionInputData("wrnmbb", "kills", "deaths", "assists", "cs", "goldEarned");
         interactor.execute(inputData);

@@ -1,12 +1,13 @@
 package data_access;
 
 import entity.*;
+import use_case.Apply_Selection.ApplySelectionDataAccessInterface;
 import use_case.update.UpdateDataAccessInterface;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AllPurposeDataAccessObject implements UpdateDataAccessInterface {
+public class AllPurposeDataAccessObject implements UpdateDataAccessInterface, ApplySelectionDataAccessInterface {
     PlayerDataAccessObject playerDataAccessObject;
 
     MatchDataAccessObject matchDataAccessObject;

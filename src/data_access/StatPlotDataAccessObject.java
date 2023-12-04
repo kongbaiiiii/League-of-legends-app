@@ -1,8 +1,6 @@
 package data_access;
 
-import entity.Match;
-import entity.Matches;
-import entity.Player;
+import entity.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -10,8 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.Apply_Selection.ApplySelectionDataAccessInterface;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -19,9 +16,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
-public class StatPlotDataAccessObject implements ApplySelectionDataAccessInterface {
-    private final Matches matches;
-    private final Player player;
+public class StatPlotDataAccessObject {
+    private Matches matches;
+    private Player player;
 
     public StatPlotDataAccessObject(Matches matches, Player player) {
         this.matches = matches;

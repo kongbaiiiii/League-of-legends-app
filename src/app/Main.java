@@ -91,7 +91,6 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        StatPlotDataAccessObject statPlotDataAccessObject = new StatPlotDataAccessObject(matchDataAccessObject.getMatches(), playerDataAccessObject.getPlayer());
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, playerDataAccessObject);
         views.add(loginView, loginView.viewName);
@@ -104,7 +103,7 @@ public class Main {
         PlayerPlotView playerPlotView = PlayerPlotViewFactory.create(viewManagerModel, checkPlayerStatDetailsViewModel, loggedInViewModel, selectStatViewModel);
         views.add(playerPlotView, playerPlotView.viewName);
 
-        SelectStatView selectDataView = SelectDataViewFactory.create(viewManagerModel, selectStatViewModel, applySelectionViewModel, checkPlayerStatDetailsViewModel, statPlotDataAccessObject, loggedInViewModel);
+        SelectStatView selectDataView = SelectDataViewFactory.create(viewManagerModel, selectStatViewModel, applySelectionViewModel, checkPlayerStatDetailsViewModel, allPurposeDataAccessObject, loggedInViewModel);
         views.add(selectDataView, selectDataView.viewName);
 
         File playerFile = new File("player.csv");
