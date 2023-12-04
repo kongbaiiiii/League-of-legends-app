@@ -16,22 +16,31 @@ Our goal is to develop a system that allows League of Legend Players regardless 
 - **Update**
 ### Apply Selection:  
 This feature updates and tracks your gameplay to show your progress over time. This feature is especially for those who want to improve their gameplay or see their strengths and weaknesses. For this feature you would select exactly 5 of the stats given and when you click apply selection, it will display a graph of your performance based on the selected stats you have chosen. By providing this detailed view, players can track their performance specifically on certain aspects of the game such as farming, staying alive longer, killing, etc.
+![](images/readme/ApplyselctionShot.jpeg)
 ### Check Match:  
 This feature gives you a detailed analysis on your recent matches and gives you a comprehensive understanding of the team composition, your individual performance of the match and overall match outcome(win/lose). This feature provides players with an in depth understand of each match they played and through the match stats, they can analyze how the match resulted in a loss/win and evaluate what they did right and what they can improve on for further matches. This feature is displayed when you click on the more button of each match, and it will show you the match details. This can be significant for finding the meta/strategy of the game such as seeing what champions are played the most throughout your matches and seeing if it results in more wins or losses.
+![](images/readme/CheckMatchShot.jpeg)
 ### Check Player Stat Details:  
 This feature gives you a comprehensive analysis on your overall individual performance as you can see your overall kda, cs, etc. This feature is designed for those who want to focus on improving specific aspects of their game such as getting a higher kda or cs score. By highlighting the players strengths and weaknesses through the plots, it can really help the player climb up the ranks especially when the stats are visually shown as it is more comprenhesive to most people as opposed to a bunch of numbers and letters. This feature is shown when you select the stats and apply the selection as it will then give you the plots of your selected stats.
+![](images/readme/CheckPlayerDetailShot.jpeg)
 ### Key Setup:
 This feature is used to get into the application as you would need to first get a valid authentication Riot Games API key which then allows you to access your LOL stats. This feature integrates your key with the Riot API and gets all your stats as long as the key you inputted is valid.
+![](images/readme/KeysetupShot.jpeg)
 ### Login:
 This feature is used when you successfully enter a generated Riot API key and to login, you would just have to enter a valid playerid which is your league username. However, your playerid is only valid if your league account is #NA1. For this login you would just need to input a valid playerid as no password is required.
+![](images/readme/LoginShot.jpeg)
 ### Logout:
-This feature is used when you want to exit the application and essentially just sign out of it.
+This feature is used when you want to exit the application and essentially just sign out of it. If you don't logout, the next time you open the program your stat up until your last update will still being presented.
+![](images/readme/Logout.jpeg)
 ### Return to Main Page:
 This feature returns you to the main page and is the default view when a user first logs in to the application.
+![](images/readme/ReturnHomeShot.jpeg)
 ### Select Stat:
 This feature allows you to choose exactly the 5 stats that you want to focus on out of the many stats given to choose from. This is aligned with the use case Check Player Stat Details where in this use case you are selecting the stats that you want to analyze and the other use case shows you the plot of the selected stats. Both these use cases are designed especially for those who want to analyze certain parts of their game and improve or work on specific aspects of the game. This feature can be used for both competitive players and also players that just want to learn and have a fun time during their games.
+![](images/readme/SelectionShot.jpeg)
 ### Update:
-This feature allows the user to update their latest stats and ensures that the application remains current with the users stats such as their matches, overall performance, etc. This feature is on the left part of the main page and everytime you click update, your stats updated to your most recent matches.
+This feature allows the user to update their latest stats and ensures that the application remains current with the users stats such as their matches, overall performance, etc. This feature is on the left part of the main page and everytime you click update, your stats updated to your most recent matches. **Everytime you login you should click update** in order to see your latest data.
+![](images/readme/UpdateShot.jpeg)
 ## Installation and Setup:
 1. Generate a Development Api key from the riot developer portal: https://developer.riotgames.com/
 2. Clone this repository: git clone https://github.com/kongbaiiiii/League-of-legends-app.git
